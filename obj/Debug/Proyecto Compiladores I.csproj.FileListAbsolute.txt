@@ -1,0 +1,10 @@
+C:\Users\maruc\source\repos\Proyecto Compiladores I\bin\Debug\Proyecto Compiladores I.exe.config
+C:\Users\maruc\source\repos\Proyecto Compiladores I\bin\Debug\Proyecto Compiladores I.exe
+C:\Users\maruc\source\repos\Proyecto Compiladores I\bin\Debug\Proyecto Compiladores I.pdb
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto Compiladores I.csprojAssemblyReference.cache
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto_Compiladores_I.Form1.resources
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto_Compiladores_I.Properties.Resources.resources
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto Compiladores I.csproj.GenerateResource.cache
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto Compiladores I.csproj.CoreCompileInputs.cache
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto Compiladores I.exe
+C:\Users\maruc\source\repos\Proyecto Compiladores I\obj\Debug\Proyecto Compiladores I.pdb
