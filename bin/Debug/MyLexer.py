@@ -8,13 +8,13 @@ class MyLexer():
  
     # CONSTRUCTOR
     def __init__(self):
-        print('Lexer constructor called.')
+        #print('Lexer constructor called.')
         self.lexer = lex.lex(module=self)
         self.lexer.begin('INITIAL')
  
     # DESTRUCTOR
     def __del__(self):
-        print('Lexer destructor called.')
+        print('Finalización de Analizador Léxico-gráfico')
  
     # list of TOKENS
     tokens = [
@@ -122,13 +122,15 @@ class MyLexer():
         t.type = t.value.upper()
         return t
 
+    def t_FLOATNUMBER(self, t):
+        r'[0-9]*\.?[0-9]+'
+        return t
+
     def t_NUMBER(self, t):
         r'\d+'
         return t
 
-    def t_FLOATNUMBER(self,t):
-        r'[0-9]*\.?[0-9]+'
-        return t
+
 
 
 

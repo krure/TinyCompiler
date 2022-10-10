@@ -9,10 +9,10 @@ from MyParser import *
  
 # create objects MY LEXER and MY PARSER
 myLex = MyLexer()
-myPars = MyParser(myLex)
+#myPars = MyParser(myLex)
  
 lex = myLex.lexer
-parser = myPars.parser
+#parser = myPars.parser
  
 # reading INPUT FILE
  
@@ -23,7 +23,7 @@ myFile.close()
 analizador =  myLex.lexer
 analizador.input(cadena)
 while True:
-    print("analizando")
+    #print("analizando")
     tok = analizador.token()
     if not tok: break
     print(tok)

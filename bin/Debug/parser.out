@@ -20,131 +20,129 @@ Rule 7     declaracion -> tipo lista_id error
 Rule 8     tipo -> INT
 Rule 9     tipo -> FLOAT
 Rule 10    tipo -> BOOL
-Rule 11    lista_id -> IDENTIFIER COMA IDENTIFIER
+Rule 11    lista_id -> IDENTIFIER COMA lista_id
 Rule 12    lista_id -> IDENTIFIER
 Rule 13    lista_sentencias -> sentencia
 Rule 14    lista_sentencias -> sentencia lista_sentencias
-Rule 15    sentencia -> seleccion
-Rule 16    sentencia -> iteracion
-Rule 17    sentencia -> repeticion
-Rule 18    sentencia -> sent_read
-Rule 19    sentencia -> sent_write
-Rule 20    sentencia -> bloque
-Rule 21    sentencia -> asignacion
-Rule 22    seleccion -> IF LPAREN b_expresion RPAREN THEN bloque
-Rule 23    seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI
-Rule 24    seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI
-Rule 25    iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque
-Rule 26    repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
-Rule 27    sent_read -> READ IDENTIFIER PUNTOCOMA
-Rule 28    sent_write -> WRITE b_expresion PUNTOCOMA
-Rule 29    bloque -> LLAVEABRE lista_sentencias LLAVECIERRA
-Rule 30    asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA
-Rule 31    b_expresion -> b_term OR b_term
-Rule 32    b_expresion -> b_term
-Rule 33    b_term -> not_factor AND not_factor
-Rule 34    b_term -> not_factor
-Rule 35    not_factor -> NOT b_factor
-Rule 36    not_factor -> b_factor
-Rule 37    b_factor -> LPAREN TRUE RPAREN
-Rule 38    b_factor -> LPAREN FALSE RPAREN
-Rule 39    b_factor -> relacion
-Rule 40    relacion -> expresion rel_Op expresion
-Rule 41    relacion -> expresion
-Rule 42    rel_Op -> MENORIGUAL
-Rule 43    rel_Op -> MENOR
-Rule 44    rel_Op -> MAYOR
-Rule 45    rel_Op -> MAYORIGUAL
-Rule 46    rel_Op -> IGUALIGUAL
-Rule 47    rel_Op -> DIFERENTE
-Rule 48    expresion -> termino suma_Op termino
-Rule 49    expresion -> termino
-Rule 50    suma_Op -> PLUS
-Rule 51    suma_Op -> MINUS
-Rule 52    termino -> signoFactor multi_Op signoFactor
-Rule 53    termino -> signoFactor
-Rule 54    multi_Op -> TIMES
-Rule 55    multi_Op -> DIVIDE
-Rule 56    signoFactor -> suma_Op factor
-Rule 57    signoFactor -> factor
-Rule 58    factor -> LPAREN b_expresion RPAREN
-Rule 59    factor -> NUMBER
-Rule 60    factor -> FLOATNUMBER
-Rule 61    factor -> IDENTIFIER
+Rule 15    lista_sentencias -> <empty>
+Rule 16    sentencia -> seleccion
+Rule 17    sentencia -> iteracion
+Rule 18    sentencia -> repeticion
+Rule 19    sentencia -> sent_read
+Rule 20    sentencia -> sent_write
+Rule 21    sentencia -> bloque
+Rule 22    sentencia -> asignacion
+Rule 23    seleccion -> IF LPAREN b_expresion RPAREN THEN bloque
+Rule 24    seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI
+Rule 25    seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI
+Rule 26    seleccion -> IF error
+Rule 27    iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque
+Rule 28    repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+Rule 29    sent_read -> READ IDENTIFIER PUNTOCOMA
+Rule 30    sent_write -> WRITE b_expresion PUNTOCOMA
+Rule 31    bloque -> LLAVEABRE lista_sentencias LLAVECIERRA
+Rule 32    asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA
+Rule 33    asignacion -> IDENTIFIER IGUAL b_expresion error
+Rule 34    b_expresion -> b_term OR b_term
+Rule 35    b_expresion -> b_term
+Rule 36    b_term -> not_factor AND not_factor
+Rule 37    b_term -> not_factor
+Rule 38    not_factor -> NOT b_factor
+Rule 39    not_factor -> b_factor
+Rule 40    b_factor -> LPAREN TRUE RPAREN
+Rule 41    b_factor -> LPAREN FALSE RPAREN
+Rule 42    b_factor -> relacion
+Rule 43    relacion -> expresion MENORIGUAL expresion
+Rule 44    relacion -> expresion MENOR expresion
+Rule 45    relacion -> expresion MAYOR expresion
+Rule 46    relacion -> expresion MAYORIGUAL expresion
+Rule 47    relacion -> expresion IGUALIGUAL expresion
+Rule 48    relacion -> expresion DIFERENTE expresion
+Rule 49    relacion -> expresion
+Rule 50    expresion -> termino PLUS termino
+Rule 51    expresion -> termino MINUS termino
+Rule 52    expresion -> termino
+Rule 53    termino -> signoFactor TIMES signoFactor
+Rule 54    termino -> signoFactor DIVIDE signoFactor
+Rule 55    termino -> signoFactor
+Rule 56    signoFactor -> PLUS factor
+Rule 57    signoFactor -> MINUS factor
+Rule 58    signoFactor -> factor
+Rule 59    factor -> LPAREN b_expresion RPAREN
+Rule 60    factor -> NUMBER
+Rule 61    factor -> FLOATNUMBER
+Rule 62    factor -> IDENTIFIER
 
 Terminals, with rules where they appear
 
-AND                  : 33
+AND                  : 36
 BOOL                 : 10
 COMA                 : 11
 COMENTARIOSBLOQUE    : 
 COMENTARIOSLINEA     : 
-DIFERENTE            : 47
-DIVIDE               : 55
-DO                   : 26
-ELSE                 : 23
-FALSE                : 38
-FI                   : 23 24
+DIFERENTE            : 48
+DIVIDE               : 54
+DO                   : 28
+ELSE                 : 24
+FALSE                : 41
+FI                   : 24 25
 FLOAT                : 9
-FLOATNUMBER          : 60
-IDENTIFIER           : 11 11 12 27 30 61
-IF                   : 22 23 24
-IGUAL                : 30
-IGUALIGUAL           : 46
+FLOATNUMBER          : 61
+IDENTIFIER           : 11 12 29 32 33 62
+IF                   : 23 24 25 26
+IGUAL                : 32 33
+IGUALIGUAL           : 47
 INT                  : 8
-LLAVEABRE            : 1 2 3 29
-LLAVECIERRA          : 1 2 3 29
-LPAREN               : 22 23 24 25 26 37 38 58
-MAYOR                : 44
-MAYORIGUAL           : 45
-MENOR                : 43
-MENORIGUAL           : 42
-MINUS                : 51
-NOT                  : 35
-NUMBER               : 59
-OR                   : 31
-PLUS                 : 50
+LLAVEABRE            : 1 2 3 31
+LLAVECIERRA          : 1 2 3 31
+LPAREN               : 23 24 25 27 28 40 41 59
+MAYOR                : 45
+MAYORIGUAL           : 46
+MENOR                : 44
+MENORIGUAL           : 43
+MINUS                : 51 57
+NOT                  : 38
+NUMBER               : 60
+OR                   : 34
+PLUS                 : 50 56
 PROGRAM              : 1 2 3
-PUNTOCOMA            : 6 26 27 28 30
-READ                 : 27
+PUNTOCOMA            : 6 28 29 30 32
+READ                 : 29
 RESERVADA            : 
-RPAREN               : 22 23 24 25 26 37 38 58
+RPAREN               : 23 24 25 27 28 40 41 59
 SEP                  : 
-THEN                 : 22 24 25
-TIMES                : 54
-TRUE                 : 37
-UNTIL                : 26
-WHILE                : 25
-WRITE                : 28
-error                : 7
+THEN                 : 23 25 27
+TIMES                : 53
+TRUE                 : 40
+UNTIL                : 28
+WHILE                : 27
+WRITE                : 30
+error                : 7 26 33
 
 Nonterminals, with rules where they appear
 
-asignacion           : 21
-b_expresion          : 22 23 24 25 26 28 30 58
-b_factor             : 35 36
-b_term               : 31 31 32
-bloque               : 20 22 23 24 25 26
+asignacion           : 22
+b_expresion          : 23 24 25 27 28 30 32 33 59
+b_factor             : 38 39
+b_term               : 34 34 35
+bloque               : 21 23 24 25 27 28
 declaracion          : 4 5
-expresion            : 40 40 41
-factor               : 56 57
-iteracion            : 16
+expresion            : 43 43 44 44 45 45 46 46 47 47 48 48 49
+factor               : 56 57 58
+iteracion            : 17
 lista_declaracion    : 1 3 5
-lista_id             : 6 7
-lista_sentencias     : 1 14 29
-multi_Op             : 52
-not_factor           : 33 33 34
+lista_id             : 6 7 11
+lista_sentencias     : 1 14 31
+not_factor           : 36 36 37
 programa             : 0
-rel_Op               : 40
-relacion             : 39
-repeticion           : 17
-seleccion            : 15
-sent_read            : 18
-sent_write           : 19
+relacion             : 42
+repeticion           : 18
+seleccion            : 16
+sent_read            : 19
+sent_write           : 20
 sentencia            : 13 14
-signoFactor          : 52 52 53
-suma_Op              : 48 56
-termino              : 48 48 49
+signoFactor          : 53 53 54 54 55
+termino              : 50 50 51 51 52
 tipo                 : 6 7
 
 Parsing method: LALR
@@ -203,23 +201,27 @@ state 4
     (3) programa -> PROGRAM LLAVEABRE lista_declaracion . LLAVECIERRA
     (13) lista_sentencias -> . sentencia
     (14) lista_sentencias -> . sentencia lista_sentencias
-    (15) sentencia -> . seleccion
-    (16) sentencia -> . iteracion
-    (17) sentencia -> . repeticion
-    (18) sentencia -> . sent_read
-    (19) sentencia -> . sent_write
-    (20) sentencia -> . bloque
-    (21) sentencia -> . asignacion
-    (22) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
-    (23) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
-    (24) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
-    (25) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
-    (26) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
-    (27) sent_read -> . READ IDENTIFIER PUNTOCOMA
-    (28) sent_write -> . WRITE b_expresion PUNTOCOMA
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
-    (30) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (15) lista_sentencias -> .
+    (16) sentencia -> . seleccion
+    (17) sentencia -> . iteracion
+    (18) sentencia -> . repeticion
+    (19) sentencia -> . sent_read
+    (20) sentencia -> . sent_write
+    (21) sentencia -> . bloque
+    (22) sentencia -> . asignacion
+    (23) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
+    (24) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
+    (25) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
+    (26) seleccion -> . IF error
+    (27) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
+    (28) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+    (29) sent_read -> . READ IDENTIFIER PUNTOCOMA
+    (30) sent_write -> . WRITE b_expresion PUNTOCOMA
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (32) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (33) asignacion -> . IDENTIFIER IGUAL b_expresion error
 
+  ! shift/reduce conflict for LLAVECIERRA resolved as shift
     LLAVECIERRA     shift and go to state 13
     IF              shift and go to state 22
     WHILE           shift and go to state 23
@@ -228,6 +230,8 @@ state 4
     WRITE           shift and go to state 27
     LLAVEABRE       shift and go to state 11
     IDENTIFIER      shift and go to state 26
+
+  ! LLAVECIERRA     [ reduce using rule 15 (lista_sentencias -> .) ]
 
     lista_sentencias               shift and go to state 12
     sentencia                      shift and go to state 14
@@ -278,7 +282,7 @@ state 7
 
     (6) declaracion -> tipo . lista_id PUNTOCOMA
     (7) declaracion -> tipo . lista_id error
-    (11) lista_id -> . IDENTIFIER COMA IDENTIFIER
+    (11) lista_id -> . IDENTIFIER COMA lista_id
     (12) lista_id -> . IDENTIFIER
 
     IDENTIFIER      shift and go to state 30
@@ -308,26 +312,30 @@ state 10
 
 state 11
 
-    (29) bloque -> LLAVEABRE . lista_sentencias LLAVECIERRA
+    (31) bloque -> LLAVEABRE . lista_sentencias LLAVECIERRA
     (13) lista_sentencias -> . sentencia
     (14) lista_sentencias -> . sentencia lista_sentencias
-    (15) sentencia -> . seleccion
-    (16) sentencia -> . iteracion
-    (17) sentencia -> . repeticion
-    (18) sentencia -> . sent_read
-    (19) sentencia -> . sent_write
-    (20) sentencia -> . bloque
-    (21) sentencia -> . asignacion
-    (22) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
-    (23) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
-    (24) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
-    (25) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
-    (26) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
-    (27) sent_read -> . READ IDENTIFIER PUNTOCOMA
-    (28) sent_write -> . WRITE b_expresion PUNTOCOMA
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
-    (30) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (15) lista_sentencias -> .
+    (16) sentencia -> . seleccion
+    (17) sentencia -> . iteracion
+    (18) sentencia -> . repeticion
+    (19) sentencia -> . sent_read
+    (20) sentencia -> . sent_write
+    (21) sentencia -> . bloque
+    (22) sentencia -> . asignacion
+    (23) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
+    (24) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
+    (25) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
+    (26) seleccion -> . IF error
+    (27) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
+    (28) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+    (29) sent_read -> . READ IDENTIFIER PUNTOCOMA
+    (30) sent_write -> . WRITE b_expresion PUNTOCOMA
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (32) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (33) asignacion -> . IDENTIFIER IGUAL b_expresion error
 
+    LLAVECIERRA     reduce using rule 15 (lista_sentencias -> .)
     IF              shift and go to state 22
     WHILE           shift and go to state 23
     DO              shift and go to state 24
@@ -366,23 +374,27 @@ state 14
     (14) lista_sentencias -> sentencia . lista_sentencias
     (13) lista_sentencias -> . sentencia
     (14) lista_sentencias -> . sentencia lista_sentencias
-    (15) sentencia -> . seleccion
-    (16) sentencia -> . iteracion
-    (17) sentencia -> . repeticion
-    (18) sentencia -> . sent_read
-    (19) sentencia -> . sent_write
-    (20) sentencia -> . bloque
-    (21) sentencia -> . asignacion
-    (22) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
-    (23) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
-    (24) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
-    (25) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
-    (26) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
-    (27) sent_read -> . READ IDENTIFIER PUNTOCOMA
-    (28) sent_write -> . WRITE b_expresion PUNTOCOMA
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
-    (30) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (15) lista_sentencias -> .
+    (16) sentencia -> . seleccion
+    (17) sentencia -> . iteracion
+    (18) sentencia -> . repeticion
+    (19) sentencia -> . sent_read
+    (20) sentencia -> . sent_write
+    (21) sentencia -> . bloque
+    (22) sentencia -> . asignacion
+    (23) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque
+    (24) seleccion -> . IF LPAREN b_expresion RPAREN ELSE bloque FI
+    (25) seleccion -> . IF LPAREN b_expresion RPAREN THEN bloque FI
+    (26) seleccion -> . IF error
+    (27) iteracion -> . WHILE LPAREN b_expresion RPAREN THEN bloque
+    (28) repeticion -> . DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+    (29) sent_read -> . READ IDENTIFIER PUNTOCOMA
+    (30) sent_write -> . WRITE b_expresion PUNTOCOMA
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (32) asignacion -> . IDENTIFIER IGUAL b_expresion PUNTOCOMA
+    (33) asignacion -> . IDENTIFIER IGUAL b_expresion error
 
+  ! reduce/reduce conflict for LLAVECIERRA resolved using rule 13 (lista_sentencias -> sentencia .)
     LLAVECIERRA     reduce using rule 13 (lista_sentencias -> sentencia .)
     IF              shift and go to state 22
     WHILE           shift and go to state 23
@@ -391,6 +403,8 @@ state 14
     WRITE           shift and go to state 27
     LLAVEABRE       shift and go to state 11
     IDENTIFIER      shift and go to state 26
+
+  ! LLAVECIERRA     [ reduce using rule 15 (lista_sentencias -> .) ]
 
     sentencia                      shift and go to state 14
     lista_sentencias               shift and go to state 33
@@ -404,186 +418,194 @@ state 14
 
 state 15
 
-    (15) sentencia -> seleccion .
+    (16) sentencia -> seleccion .
 
-    IF              reduce using rule 15 (sentencia -> seleccion .)
-    WHILE           reduce using rule 15 (sentencia -> seleccion .)
-    DO              reduce using rule 15 (sentencia -> seleccion .)
-    READ            reduce using rule 15 (sentencia -> seleccion .)
-    WRITE           reduce using rule 15 (sentencia -> seleccion .)
-    LLAVEABRE       reduce using rule 15 (sentencia -> seleccion .)
-    IDENTIFIER      reduce using rule 15 (sentencia -> seleccion .)
-    LLAVECIERRA     reduce using rule 15 (sentencia -> seleccion .)
+    IF              reduce using rule 16 (sentencia -> seleccion .)
+    WHILE           reduce using rule 16 (sentencia -> seleccion .)
+    DO              reduce using rule 16 (sentencia -> seleccion .)
+    READ            reduce using rule 16 (sentencia -> seleccion .)
+    WRITE           reduce using rule 16 (sentencia -> seleccion .)
+    LLAVEABRE       reduce using rule 16 (sentencia -> seleccion .)
+    IDENTIFIER      reduce using rule 16 (sentencia -> seleccion .)
+    LLAVECIERRA     reduce using rule 16 (sentencia -> seleccion .)
 
 
 state 16
 
-    (16) sentencia -> iteracion .
+    (17) sentencia -> iteracion .
 
-    IF              reduce using rule 16 (sentencia -> iteracion .)
-    WHILE           reduce using rule 16 (sentencia -> iteracion .)
-    DO              reduce using rule 16 (sentencia -> iteracion .)
-    READ            reduce using rule 16 (sentencia -> iteracion .)
-    WRITE           reduce using rule 16 (sentencia -> iteracion .)
-    LLAVEABRE       reduce using rule 16 (sentencia -> iteracion .)
-    IDENTIFIER      reduce using rule 16 (sentencia -> iteracion .)
-    LLAVECIERRA     reduce using rule 16 (sentencia -> iteracion .)
+    IF              reduce using rule 17 (sentencia -> iteracion .)
+    WHILE           reduce using rule 17 (sentencia -> iteracion .)
+    DO              reduce using rule 17 (sentencia -> iteracion .)
+    READ            reduce using rule 17 (sentencia -> iteracion .)
+    WRITE           reduce using rule 17 (sentencia -> iteracion .)
+    LLAVEABRE       reduce using rule 17 (sentencia -> iteracion .)
+    IDENTIFIER      reduce using rule 17 (sentencia -> iteracion .)
+    LLAVECIERRA     reduce using rule 17 (sentencia -> iteracion .)
 
 
 state 17
 
-    (17) sentencia -> repeticion .
+    (18) sentencia -> repeticion .
 
-    IF              reduce using rule 17 (sentencia -> repeticion .)
-    WHILE           reduce using rule 17 (sentencia -> repeticion .)
-    DO              reduce using rule 17 (sentencia -> repeticion .)
-    READ            reduce using rule 17 (sentencia -> repeticion .)
-    WRITE           reduce using rule 17 (sentencia -> repeticion .)
-    LLAVEABRE       reduce using rule 17 (sentencia -> repeticion .)
-    IDENTIFIER      reduce using rule 17 (sentencia -> repeticion .)
-    LLAVECIERRA     reduce using rule 17 (sentencia -> repeticion .)
+    IF              reduce using rule 18 (sentencia -> repeticion .)
+    WHILE           reduce using rule 18 (sentencia -> repeticion .)
+    DO              reduce using rule 18 (sentencia -> repeticion .)
+    READ            reduce using rule 18 (sentencia -> repeticion .)
+    WRITE           reduce using rule 18 (sentencia -> repeticion .)
+    LLAVEABRE       reduce using rule 18 (sentencia -> repeticion .)
+    IDENTIFIER      reduce using rule 18 (sentencia -> repeticion .)
+    LLAVECIERRA     reduce using rule 18 (sentencia -> repeticion .)
 
 
 state 18
 
-    (18) sentencia -> sent_read .
+    (19) sentencia -> sent_read .
 
-    IF              reduce using rule 18 (sentencia -> sent_read .)
-    WHILE           reduce using rule 18 (sentencia -> sent_read .)
-    DO              reduce using rule 18 (sentencia -> sent_read .)
-    READ            reduce using rule 18 (sentencia -> sent_read .)
-    WRITE           reduce using rule 18 (sentencia -> sent_read .)
-    LLAVEABRE       reduce using rule 18 (sentencia -> sent_read .)
-    IDENTIFIER      reduce using rule 18 (sentencia -> sent_read .)
-    LLAVECIERRA     reduce using rule 18 (sentencia -> sent_read .)
+    IF              reduce using rule 19 (sentencia -> sent_read .)
+    WHILE           reduce using rule 19 (sentencia -> sent_read .)
+    DO              reduce using rule 19 (sentencia -> sent_read .)
+    READ            reduce using rule 19 (sentencia -> sent_read .)
+    WRITE           reduce using rule 19 (sentencia -> sent_read .)
+    LLAVEABRE       reduce using rule 19 (sentencia -> sent_read .)
+    IDENTIFIER      reduce using rule 19 (sentencia -> sent_read .)
+    LLAVECIERRA     reduce using rule 19 (sentencia -> sent_read .)
 
 
 state 19
 
-    (19) sentencia -> sent_write .
+    (20) sentencia -> sent_write .
 
-    IF              reduce using rule 19 (sentencia -> sent_write .)
-    WHILE           reduce using rule 19 (sentencia -> sent_write .)
-    DO              reduce using rule 19 (sentencia -> sent_write .)
-    READ            reduce using rule 19 (sentencia -> sent_write .)
-    WRITE           reduce using rule 19 (sentencia -> sent_write .)
-    LLAVEABRE       reduce using rule 19 (sentencia -> sent_write .)
-    IDENTIFIER      reduce using rule 19 (sentencia -> sent_write .)
-    LLAVECIERRA     reduce using rule 19 (sentencia -> sent_write .)
+    IF              reduce using rule 20 (sentencia -> sent_write .)
+    WHILE           reduce using rule 20 (sentencia -> sent_write .)
+    DO              reduce using rule 20 (sentencia -> sent_write .)
+    READ            reduce using rule 20 (sentencia -> sent_write .)
+    WRITE           reduce using rule 20 (sentencia -> sent_write .)
+    LLAVEABRE       reduce using rule 20 (sentencia -> sent_write .)
+    IDENTIFIER      reduce using rule 20 (sentencia -> sent_write .)
+    LLAVECIERRA     reduce using rule 20 (sentencia -> sent_write .)
 
 
 state 20
 
-    (20) sentencia -> bloque .
+    (21) sentencia -> bloque .
 
-    IF              reduce using rule 20 (sentencia -> bloque .)
-    WHILE           reduce using rule 20 (sentencia -> bloque .)
-    DO              reduce using rule 20 (sentencia -> bloque .)
-    READ            reduce using rule 20 (sentencia -> bloque .)
-    WRITE           reduce using rule 20 (sentencia -> bloque .)
-    LLAVEABRE       reduce using rule 20 (sentencia -> bloque .)
-    IDENTIFIER      reduce using rule 20 (sentencia -> bloque .)
-    LLAVECIERRA     reduce using rule 20 (sentencia -> bloque .)
+    IF              reduce using rule 21 (sentencia -> bloque .)
+    WHILE           reduce using rule 21 (sentencia -> bloque .)
+    DO              reduce using rule 21 (sentencia -> bloque .)
+    READ            reduce using rule 21 (sentencia -> bloque .)
+    WRITE           reduce using rule 21 (sentencia -> bloque .)
+    LLAVEABRE       reduce using rule 21 (sentencia -> bloque .)
+    IDENTIFIER      reduce using rule 21 (sentencia -> bloque .)
+    LLAVECIERRA     reduce using rule 21 (sentencia -> bloque .)
 
 
 state 21
 
-    (21) sentencia -> asignacion .
+    (22) sentencia -> asignacion .
 
-    IF              reduce using rule 21 (sentencia -> asignacion .)
-    WHILE           reduce using rule 21 (sentencia -> asignacion .)
-    DO              reduce using rule 21 (sentencia -> asignacion .)
-    READ            reduce using rule 21 (sentencia -> asignacion .)
-    WRITE           reduce using rule 21 (sentencia -> asignacion .)
-    LLAVEABRE       reduce using rule 21 (sentencia -> asignacion .)
-    IDENTIFIER      reduce using rule 21 (sentencia -> asignacion .)
-    LLAVECIERRA     reduce using rule 21 (sentencia -> asignacion .)
+    IF              reduce using rule 22 (sentencia -> asignacion .)
+    WHILE           reduce using rule 22 (sentencia -> asignacion .)
+    DO              reduce using rule 22 (sentencia -> asignacion .)
+    READ            reduce using rule 22 (sentencia -> asignacion .)
+    WRITE           reduce using rule 22 (sentencia -> asignacion .)
+    LLAVEABRE       reduce using rule 22 (sentencia -> asignacion .)
+    IDENTIFIER      reduce using rule 22 (sentencia -> asignacion .)
+    LLAVECIERRA     reduce using rule 22 (sentencia -> asignacion .)
 
 
 state 22
 
-    (22) seleccion -> IF . LPAREN b_expresion RPAREN THEN bloque
-    (23) seleccion -> IF . LPAREN b_expresion RPAREN ELSE bloque FI
-    (24) seleccion -> IF . LPAREN b_expresion RPAREN THEN bloque FI
+    (23) seleccion -> IF . LPAREN b_expresion RPAREN THEN bloque
+    (24) seleccion -> IF . LPAREN b_expresion RPAREN ELSE bloque FI
+    (25) seleccion -> IF . LPAREN b_expresion RPAREN THEN bloque FI
+    (26) seleccion -> IF . error
 
     LPAREN          shift and go to state 34
+    error           shift and go to state 35
 
 
 state 23
 
-    (25) iteracion -> WHILE . LPAREN b_expresion RPAREN THEN bloque
+    (27) iteracion -> WHILE . LPAREN b_expresion RPAREN THEN bloque
 
-    LPAREN          shift and go to state 35
+    LPAREN          shift and go to state 36
 
 
 state 24
 
-    (26) repeticion -> DO . bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (28) repeticion -> DO . bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
 
     LLAVEABRE       shift and go to state 11
 
-    bloque                         shift and go to state 36
+    bloque                         shift and go to state 37
 
 state 25
 
-    (27) sent_read -> READ . IDENTIFIER PUNTOCOMA
+    (29) sent_read -> READ . IDENTIFIER PUNTOCOMA
 
-    IDENTIFIER      shift and go to state 37
+    IDENTIFIER      shift and go to state 38
 
 
 state 26
 
-    (30) asignacion -> IDENTIFIER . IGUAL b_expresion PUNTOCOMA
+    (32) asignacion -> IDENTIFIER . IGUAL b_expresion PUNTOCOMA
+    (33) asignacion -> IDENTIFIER . IGUAL b_expresion error
 
-    IGUAL           shift and go to state 38
+    IGUAL           shift and go to state 39
 
 
 state 27
 
-    (28) sent_write -> WRITE . b_expresion PUNTOCOMA
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (30) sent_write -> WRITE . b_expresion PUNTOCOMA
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    b_expresion                    shift and go to state 39
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_expresion                    shift and go to state 40
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 28
 
@@ -610,7 +632,7 @@ state 29
 
 state 30
 
-    (11) lista_id -> IDENTIFIER . COMA IDENTIFIER
+    (11) lista_id -> IDENTIFIER . COMA lista_id
     (12) lista_id -> IDENTIFIER .
 
     COMA            shift and go to state 58
@@ -620,7 +642,7 @@ state 30
 
 state 31
 
-    (29) bloque -> LLAVEABRE lista_sentencias . LLAVECIERRA
+    (31) bloque -> LLAVEABRE lista_sentencias . LLAVECIERRA
 
     LLAVECIERRA     shift and go to state 59
 
@@ -641,345 +663,387 @@ state 33
 
 state 34
 
-    (22) seleccion -> IF LPAREN . b_expresion RPAREN THEN bloque
-    (23) seleccion -> IF LPAREN . b_expresion RPAREN ELSE bloque FI
-    (24) seleccion -> IF LPAREN . b_expresion RPAREN THEN bloque FI
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (23) seleccion -> IF LPAREN . b_expresion RPAREN THEN bloque
+    (24) seleccion -> IF LPAREN . b_expresion RPAREN ELSE bloque FI
+    (25) seleccion -> IF LPAREN . b_expresion RPAREN THEN bloque FI
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_expresion                    shift and go to state 60
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 35
 
-    (25) iteracion -> WHILE LPAREN . b_expresion RPAREN THEN bloque
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (26) seleccion -> IF error .
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    IF              reduce using rule 26 (seleccion -> IF error .)
+    WHILE           reduce using rule 26 (seleccion -> IF error .)
+    DO              reduce using rule 26 (seleccion -> IF error .)
+    READ            reduce using rule 26 (seleccion -> IF error .)
+    WRITE           reduce using rule 26 (seleccion -> IF error .)
+    LLAVEABRE       reduce using rule 26 (seleccion -> IF error .)
+    IDENTIFIER      reduce using rule 26 (seleccion -> IF error .)
+    LLAVECIERRA     reduce using rule 26 (seleccion -> IF error .)
+
+
+state 36
+
+    (27) iteracion -> WHILE LPAREN . b_expresion RPAREN THEN bloque
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_expresion                    shift and go to state 61
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
-state 36
+state 37
 
-    (26) repeticion -> DO bloque . UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
+    (28) repeticion -> DO bloque . UNTIL LPAREN b_expresion RPAREN PUNTOCOMA
 
     UNTIL           shift and go to state 62
 
 
-state 37
+state 38
 
-    (27) sent_read -> READ IDENTIFIER . PUNTOCOMA
+    (29) sent_read -> READ IDENTIFIER . PUNTOCOMA
 
     PUNTOCOMA       shift and go to state 63
 
 
-state 38
+state 39
 
-    (30) asignacion -> IDENTIFIER IGUAL . b_expresion PUNTOCOMA
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (32) asignacion -> IDENTIFIER IGUAL . b_expresion PUNTOCOMA
+    (33) asignacion -> IDENTIFIER IGUAL . b_expresion error
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_expresion                    shift and go to state 64
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
-state 39
+state 40
 
-    (28) sent_write -> WRITE b_expresion . PUNTOCOMA
+    (30) sent_write -> WRITE b_expresion . PUNTOCOMA
 
     PUNTOCOMA       shift and go to state 65
 
 
-state 40
-
-    (31) b_expresion -> b_term . OR b_term
-    (32) b_expresion -> b_term .
-
-    OR              shift and go to state 66
-    PUNTOCOMA       reduce using rule 32 (b_expresion -> b_term .)
-    RPAREN          reduce using rule 32 (b_expresion -> b_term .)
-
-
 state 41
 
-    (33) b_term -> not_factor . AND not_factor
-    (34) b_term -> not_factor .
+    (34) b_expresion -> b_term . OR b_term
+    (35) b_expresion -> b_term .
 
-    AND             shift and go to state 67
-    OR              reduce using rule 34 (b_term -> not_factor .)
-    PUNTOCOMA       reduce using rule 34 (b_term -> not_factor .)
-    RPAREN          reduce using rule 34 (b_term -> not_factor .)
+    OR              shift and go to state 66
+    PUNTOCOMA       reduce using rule 35 (b_expresion -> b_term .)
+    RPAREN          reduce using rule 35 (b_expresion -> b_term .)
+    error           reduce using rule 35 (b_expresion -> b_term .)
 
 
 state 42
 
-    (35) not_factor -> NOT . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (36) b_term -> not_factor . AND not_factor
+    (37) b_term -> not_factor .
 
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    AND             shift and go to state 67
+    OR              reduce using rule 37 (b_term -> not_factor .)
+    PUNTOCOMA       reduce using rule 37 (b_term -> not_factor .)
+    RPAREN          reduce using rule 37 (b_term -> not_factor .)
+    error           reduce using rule 37 (b_term -> not_factor .)
+
+
+state 43
+
+    (38) not_factor -> NOT . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_factor                       shift and go to state 68
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
-
-state 43
-
-    (36) not_factor -> b_factor .
-
-    AND             reduce using rule 36 (not_factor -> b_factor .)
-    OR              reduce using rule 36 (not_factor -> b_factor .)
-    PUNTOCOMA       reduce using rule 36 (not_factor -> b_factor .)
-    RPAREN          reduce using rule 36 (not_factor -> b_factor .)
-
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 44
 
-    (37) b_factor -> LPAREN . TRUE RPAREN
-    (38) b_factor -> LPAREN . FALSE RPAREN
-    (58) factor -> LPAREN . b_expresion RPAREN
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (39) not_factor -> b_factor .
+
+    AND             reduce using rule 39 (not_factor -> b_factor .)
+    OR              reduce using rule 39 (not_factor -> b_factor .)
+    PUNTOCOMA       reduce using rule 39 (not_factor -> b_factor .)
+    RPAREN          reduce using rule 39 (not_factor -> b_factor .)
+    error           reduce using rule 39 (not_factor -> b_factor .)
+
+
+state 45
+
+    (40) b_factor -> LPAREN . TRUE RPAREN
+    (41) b_factor -> LPAREN . FALSE RPAREN
+    (59) factor -> LPAREN . b_expresion RPAREN
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
     TRUE            shift and go to state 69
     FALSE           shift and go to state 70
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_expresion                    shift and go to state 71
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
-
-state 45
-
-    (39) b_factor -> relacion .
-
-    AND             reduce using rule 39 (b_factor -> relacion .)
-    OR              reduce using rule 39 (b_factor -> relacion .)
-    PUNTOCOMA       reduce using rule 39 (b_factor -> relacion .)
-    RPAREN          reduce using rule 39 (b_factor -> relacion .)
-
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 46
 
-    (40) relacion -> expresion . rel_Op expresion
-    (41) relacion -> expresion .
-    (42) rel_Op -> . MENORIGUAL
-    (43) rel_Op -> . MENOR
-    (44) rel_Op -> . MAYOR
-    (45) rel_Op -> . MAYORIGUAL
-    (46) rel_Op -> . IGUALIGUAL
-    (47) rel_Op -> . DIFERENTE
+    (42) b_factor -> relacion .
 
-    AND             reduce using rule 41 (relacion -> expresion .)
-    OR              reduce using rule 41 (relacion -> expresion .)
-    PUNTOCOMA       reduce using rule 41 (relacion -> expresion .)
-    RPAREN          reduce using rule 41 (relacion -> expresion .)
-    MENORIGUAL      shift and go to state 73
-    MENOR           shift and go to state 74
-    MAYOR           shift and go to state 75
-    MAYORIGUAL      shift and go to state 76
-    IGUALIGUAL      shift and go to state 77
-    DIFERENTE       shift and go to state 78
+    AND             reduce using rule 42 (b_factor -> relacion .)
+    OR              reduce using rule 42 (b_factor -> relacion .)
+    PUNTOCOMA       reduce using rule 42 (b_factor -> relacion .)
+    RPAREN          reduce using rule 42 (b_factor -> relacion .)
+    error           reduce using rule 42 (b_factor -> relacion .)
 
-    rel_Op                         shift and go to state 72
 
 state 47
 
-    (48) expresion -> termino . suma_Op termino
-    (49) expresion -> termino .
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
+    (43) relacion -> expresion . MENORIGUAL expresion
+    (44) relacion -> expresion . MENOR expresion
+    (45) relacion -> expresion . MAYOR expresion
+    (46) relacion -> expresion . MAYORIGUAL expresion
+    (47) relacion -> expresion . IGUALIGUAL expresion
+    (48) relacion -> expresion . DIFERENTE expresion
+    (49) relacion -> expresion .
 
-    MENORIGUAL      reduce using rule 49 (expresion -> termino .)
-    MENOR           reduce using rule 49 (expresion -> termino .)
-    MAYOR           reduce using rule 49 (expresion -> termino .)
-    MAYORIGUAL      reduce using rule 49 (expresion -> termino .)
-    IGUALIGUAL      reduce using rule 49 (expresion -> termino .)
-    DIFERENTE       reduce using rule 49 (expresion -> termino .)
-    AND             reduce using rule 49 (expresion -> termino .)
-    OR              reduce using rule 49 (expresion -> termino .)
-    PUNTOCOMA       reduce using rule 49 (expresion -> termino .)
-    RPAREN          reduce using rule 49 (expresion -> termino .)
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    MENORIGUAL      shift and go to state 72
+    MENOR           shift and go to state 73
+    MAYOR           shift and go to state 74
+    MAYORIGUAL      shift and go to state 75
+    IGUALIGUAL      shift and go to state 76
+    DIFERENTE       shift and go to state 77
+    AND             reduce using rule 49 (relacion -> expresion .)
+    OR              reduce using rule 49 (relacion -> expresion .)
+    PUNTOCOMA       reduce using rule 49 (relacion -> expresion .)
+    RPAREN          reduce using rule 49 (relacion -> expresion .)
+    error           reduce using rule 49 (relacion -> expresion .)
 
-    suma_Op                        shift and go to state 79
 
 state 48
 
-    (56) signoFactor -> suma_Op . factor
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (50) expresion -> termino . PLUS termino
+    (51) expresion -> termino . MINUS termino
+    (52) expresion -> termino .
+
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    MENORIGUAL      reduce using rule 52 (expresion -> termino .)
+    MENOR           reduce using rule 52 (expresion -> termino .)
+    MAYOR           reduce using rule 52 (expresion -> termino .)
+    MAYORIGUAL      reduce using rule 52 (expresion -> termino .)
+    IGUALIGUAL      reduce using rule 52 (expresion -> termino .)
+    DIFERENTE       reduce using rule 52 (expresion -> termino .)
+    AND             reduce using rule 52 (expresion -> termino .)
+    OR              reduce using rule 52 (expresion -> termino .)
+    PUNTOCOMA       reduce using rule 52 (expresion -> termino .)
+    RPAREN          reduce using rule 52 (expresion -> termino .)
+    error           reduce using rule 52 (expresion -> termino .)
+
+
+state 49
+
+    (56) signoFactor -> PLUS . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
     LPAREN          shift and go to state 81
     NUMBER          shift and go to state 53
@@ -988,132 +1052,126 @@ state 48
 
     factor                         shift and go to state 80
 
-state 49
-
-    (52) termino -> signoFactor . multi_Op signoFactor
-    (53) termino -> signoFactor .
-    (54) multi_Op -> . TIMES
-    (55) multi_Op -> . DIVIDE
-
-    PLUS            reduce using rule 53 (termino -> signoFactor .)
-    MINUS           reduce using rule 53 (termino -> signoFactor .)
-    MENORIGUAL      reduce using rule 53 (termino -> signoFactor .)
-    MENOR           reduce using rule 53 (termino -> signoFactor .)
-    MAYOR           reduce using rule 53 (termino -> signoFactor .)
-    MAYORIGUAL      reduce using rule 53 (termino -> signoFactor .)
-    IGUALIGUAL      reduce using rule 53 (termino -> signoFactor .)
-    DIFERENTE       reduce using rule 53 (termino -> signoFactor .)
-    AND             reduce using rule 53 (termino -> signoFactor .)
-    OR              reduce using rule 53 (termino -> signoFactor .)
-    PUNTOCOMA       reduce using rule 53 (termino -> signoFactor .)
-    RPAREN          reduce using rule 53 (termino -> signoFactor .)
-    TIMES           shift and go to state 83
-    DIVIDE          shift and go to state 84
-
-    multi_Op                       shift and go to state 82
-
 state 50
 
-    (57) signoFactor -> factor .
+    (57) signoFactor -> MINUS . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    TIMES           reduce using rule 57 (signoFactor -> factor .)
-    DIVIDE          reduce using rule 57 (signoFactor -> factor .)
-    PLUS            reduce using rule 57 (signoFactor -> factor .)
-    MINUS           reduce using rule 57 (signoFactor -> factor .)
-    MENORIGUAL      reduce using rule 57 (signoFactor -> factor .)
-    MENOR           reduce using rule 57 (signoFactor -> factor .)
-    MAYOR           reduce using rule 57 (signoFactor -> factor .)
-    MAYORIGUAL      reduce using rule 57 (signoFactor -> factor .)
-    IGUALIGUAL      reduce using rule 57 (signoFactor -> factor .)
-    DIFERENTE       reduce using rule 57 (signoFactor -> factor .)
-    AND             reduce using rule 57 (signoFactor -> factor .)
-    OR              reduce using rule 57 (signoFactor -> factor .)
-    PUNTOCOMA       reduce using rule 57 (signoFactor -> factor .)
-    RPAREN          reduce using rule 57 (signoFactor -> factor .)
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
 
+    factor                         shift and go to state 82
 
 state 51
 
-    (50) suma_Op -> PLUS .
+    (53) termino -> signoFactor . TIMES signoFactor
+    (54) termino -> signoFactor . DIVIDE signoFactor
+    (55) termino -> signoFactor .
 
-    LPAREN          reduce using rule 50 (suma_Op -> PLUS .)
-    NUMBER          reduce using rule 50 (suma_Op -> PLUS .)
-    FLOATNUMBER     reduce using rule 50 (suma_Op -> PLUS .)
-    IDENTIFIER      reduce using rule 50 (suma_Op -> PLUS .)
-    PLUS            reduce using rule 50 (suma_Op -> PLUS .)
-    MINUS           reduce using rule 50 (suma_Op -> PLUS .)
+    TIMES           shift and go to state 83
+    DIVIDE          shift and go to state 84
+    PLUS            reduce using rule 55 (termino -> signoFactor .)
+    MINUS           reduce using rule 55 (termino -> signoFactor .)
+    MENORIGUAL      reduce using rule 55 (termino -> signoFactor .)
+    MENOR           reduce using rule 55 (termino -> signoFactor .)
+    MAYOR           reduce using rule 55 (termino -> signoFactor .)
+    MAYORIGUAL      reduce using rule 55 (termino -> signoFactor .)
+    IGUALIGUAL      reduce using rule 55 (termino -> signoFactor .)
+    DIFERENTE       reduce using rule 55 (termino -> signoFactor .)
+    AND             reduce using rule 55 (termino -> signoFactor .)
+    OR              reduce using rule 55 (termino -> signoFactor .)
+    PUNTOCOMA       reduce using rule 55 (termino -> signoFactor .)
+    RPAREN          reduce using rule 55 (termino -> signoFactor .)
+    error           reduce using rule 55 (termino -> signoFactor .)
 
 
 state 52
 
-    (51) suma_Op -> MINUS .
+    (58) signoFactor -> factor .
 
-    LPAREN          reduce using rule 51 (suma_Op -> MINUS .)
-    NUMBER          reduce using rule 51 (suma_Op -> MINUS .)
-    FLOATNUMBER     reduce using rule 51 (suma_Op -> MINUS .)
-    IDENTIFIER      reduce using rule 51 (suma_Op -> MINUS .)
-    PLUS            reduce using rule 51 (suma_Op -> MINUS .)
-    MINUS           reduce using rule 51 (suma_Op -> MINUS .)
+    TIMES           reduce using rule 58 (signoFactor -> factor .)
+    DIVIDE          reduce using rule 58 (signoFactor -> factor .)
+    PLUS            reduce using rule 58 (signoFactor -> factor .)
+    MINUS           reduce using rule 58 (signoFactor -> factor .)
+    MENORIGUAL      reduce using rule 58 (signoFactor -> factor .)
+    MENOR           reduce using rule 58 (signoFactor -> factor .)
+    MAYOR           reduce using rule 58 (signoFactor -> factor .)
+    MAYORIGUAL      reduce using rule 58 (signoFactor -> factor .)
+    IGUALIGUAL      reduce using rule 58 (signoFactor -> factor .)
+    DIFERENTE       reduce using rule 58 (signoFactor -> factor .)
+    AND             reduce using rule 58 (signoFactor -> factor .)
+    OR              reduce using rule 58 (signoFactor -> factor .)
+    PUNTOCOMA       reduce using rule 58 (signoFactor -> factor .)
+    RPAREN          reduce using rule 58 (signoFactor -> factor .)
+    error           reduce using rule 58 (signoFactor -> factor .)
 
 
 state 53
 
-    (59) factor -> NUMBER .
+    (60) factor -> NUMBER .
 
-    TIMES           reduce using rule 59 (factor -> NUMBER .)
-    DIVIDE          reduce using rule 59 (factor -> NUMBER .)
-    PLUS            reduce using rule 59 (factor -> NUMBER .)
-    MINUS           reduce using rule 59 (factor -> NUMBER .)
-    MENORIGUAL      reduce using rule 59 (factor -> NUMBER .)
-    MENOR           reduce using rule 59 (factor -> NUMBER .)
-    MAYOR           reduce using rule 59 (factor -> NUMBER .)
-    MAYORIGUAL      reduce using rule 59 (factor -> NUMBER .)
-    IGUALIGUAL      reduce using rule 59 (factor -> NUMBER .)
-    DIFERENTE       reduce using rule 59 (factor -> NUMBER .)
-    AND             reduce using rule 59 (factor -> NUMBER .)
-    OR              reduce using rule 59 (factor -> NUMBER .)
-    PUNTOCOMA       reduce using rule 59 (factor -> NUMBER .)
-    RPAREN          reduce using rule 59 (factor -> NUMBER .)
+    TIMES           reduce using rule 60 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 60 (factor -> NUMBER .)
+    PLUS            reduce using rule 60 (factor -> NUMBER .)
+    MINUS           reduce using rule 60 (factor -> NUMBER .)
+    MENORIGUAL      reduce using rule 60 (factor -> NUMBER .)
+    MENOR           reduce using rule 60 (factor -> NUMBER .)
+    MAYOR           reduce using rule 60 (factor -> NUMBER .)
+    MAYORIGUAL      reduce using rule 60 (factor -> NUMBER .)
+    IGUALIGUAL      reduce using rule 60 (factor -> NUMBER .)
+    DIFERENTE       reduce using rule 60 (factor -> NUMBER .)
+    AND             reduce using rule 60 (factor -> NUMBER .)
+    OR              reduce using rule 60 (factor -> NUMBER .)
+    PUNTOCOMA       reduce using rule 60 (factor -> NUMBER .)
+    RPAREN          reduce using rule 60 (factor -> NUMBER .)
+    error           reduce using rule 60 (factor -> NUMBER .)
 
 
 state 54
 
-    (60) factor -> FLOATNUMBER .
+    (61) factor -> FLOATNUMBER .
 
-    TIMES           reduce using rule 60 (factor -> FLOATNUMBER .)
-    DIVIDE          reduce using rule 60 (factor -> FLOATNUMBER .)
-    PLUS            reduce using rule 60 (factor -> FLOATNUMBER .)
-    MINUS           reduce using rule 60 (factor -> FLOATNUMBER .)
-    MENORIGUAL      reduce using rule 60 (factor -> FLOATNUMBER .)
-    MENOR           reduce using rule 60 (factor -> FLOATNUMBER .)
-    MAYOR           reduce using rule 60 (factor -> FLOATNUMBER .)
-    MAYORIGUAL      reduce using rule 60 (factor -> FLOATNUMBER .)
-    IGUALIGUAL      reduce using rule 60 (factor -> FLOATNUMBER .)
-    DIFERENTE       reduce using rule 60 (factor -> FLOATNUMBER .)
-    AND             reduce using rule 60 (factor -> FLOATNUMBER .)
-    OR              reduce using rule 60 (factor -> FLOATNUMBER .)
-    PUNTOCOMA       reduce using rule 60 (factor -> FLOATNUMBER .)
-    RPAREN          reduce using rule 60 (factor -> FLOATNUMBER .)
+    TIMES           reduce using rule 61 (factor -> FLOATNUMBER .)
+    DIVIDE          reduce using rule 61 (factor -> FLOATNUMBER .)
+    PLUS            reduce using rule 61 (factor -> FLOATNUMBER .)
+    MINUS           reduce using rule 61 (factor -> FLOATNUMBER .)
+    MENORIGUAL      reduce using rule 61 (factor -> FLOATNUMBER .)
+    MENOR           reduce using rule 61 (factor -> FLOATNUMBER .)
+    MAYOR           reduce using rule 61 (factor -> FLOATNUMBER .)
+    MAYORIGUAL      reduce using rule 61 (factor -> FLOATNUMBER .)
+    IGUALIGUAL      reduce using rule 61 (factor -> FLOATNUMBER .)
+    DIFERENTE       reduce using rule 61 (factor -> FLOATNUMBER .)
+    AND             reduce using rule 61 (factor -> FLOATNUMBER .)
+    OR              reduce using rule 61 (factor -> FLOATNUMBER .)
+    PUNTOCOMA       reduce using rule 61 (factor -> FLOATNUMBER .)
+    RPAREN          reduce using rule 61 (factor -> FLOATNUMBER .)
+    error           reduce using rule 61 (factor -> FLOATNUMBER .)
 
 
 state 55
 
-    (61) factor -> IDENTIFIER .
+    (62) factor -> IDENTIFIER .
 
-    TIMES           reduce using rule 61 (factor -> IDENTIFIER .)
-    DIVIDE          reduce using rule 61 (factor -> IDENTIFIER .)
-    PLUS            reduce using rule 61 (factor -> IDENTIFIER .)
-    MINUS           reduce using rule 61 (factor -> IDENTIFIER .)
-    MENORIGUAL      reduce using rule 61 (factor -> IDENTIFIER .)
-    MENOR           reduce using rule 61 (factor -> IDENTIFIER .)
-    MAYOR           reduce using rule 61 (factor -> IDENTIFIER .)
-    MAYORIGUAL      reduce using rule 61 (factor -> IDENTIFIER .)
-    IGUALIGUAL      reduce using rule 61 (factor -> IDENTIFIER .)
-    DIFERENTE       reduce using rule 61 (factor -> IDENTIFIER .)
-    AND             reduce using rule 61 (factor -> IDENTIFIER .)
-    OR              reduce using rule 61 (factor -> IDENTIFIER .)
-    PUNTOCOMA       reduce using rule 61 (factor -> IDENTIFIER .)
-    RPAREN          reduce using rule 61 (factor -> IDENTIFIER .)
+    TIMES           reduce using rule 62 (factor -> IDENTIFIER .)
+    DIVIDE          reduce using rule 62 (factor -> IDENTIFIER .)
+    PLUS            reduce using rule 62 (factor -> IDENTIFIER .)
+    MINUS           reduce using rule 62 (factor -> IDENTIFIER .)
+    MENORIGUAL      reduce using rule 62 (factor -> IDENTIFIER .)
+    MENOR           reduce using rule 62 (factor -> IDENTIFIER .)
+    MAYOR           reduce using rule 62 (factor -> IDENTIFIER .)
+    MAYORIGUAL      reduce using rule 62 (factor -> IDENTIFIER .)
+    IGUALIGUAL      reduce using rule 62 (factor -> IDENTIFIER .)
+    DIFERENTE       reduce using rule 62 (factor -> IDENTIFIER .)
+    AND             reduce using rule 62 (factor -> IDENTIFIER .)
+    OR              reduce using rule 62 (factor -> IDENTIFIER .)
+    PUNTOCOMA       reduce using rule 62 (factor -> IDENTIFIER .)
+    RPAREN          reduce using rule 62 (factor -> IDENTIFIER .)
+    error           reduce using rule 62 (factor -> IDENTIFIER .)
 
 
 state 56
@@ -1152,742 +1210,1001 @@ state 57
 
 state 58
 
-    (11) lista_id -> IDENTIFIER COMA . IDENTIFIER
+    (11) lista_id -> IDENTIFIER COMA . lista_id
+    (11) lista_id -> . IDENTIFIER COMA lista_id
+    (12) lista_id -> . IDENTIFIER
 
-    IDENTIFIER      shift and go to state 85
+    IDENTIFIER      shift and go to state 30
 
+    lista_id                       shift and go to state 85
 
 state 59
 
-    (29) bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .
+    (31) bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .
 
-    IF              reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    WHILE           reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    DO              reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    READ            reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    WRITE           reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    LLAVEABRE       reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    IDENTIFIER      reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    LLAVECIERRA     reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    UNTIL           reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
-    FI              reduce using rule 29 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    IF              reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    WHILE           reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    DO              reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    READ            reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    WRITE           reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    LLAVEABRE       reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    IDENTIFIER      reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    LLAVECIERRA     reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    UNTIL           reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
+    FI              reduce using rule 31 (bloque -> LLAVEABRE lista_sentencias LLAVECIERRA .)
 
 
 state 60
 
-    (22) seleccion -> IF LPAREN b_expresion . RPAREN THEN bloque
-    (23) seleccion -> IF LPAREN b_expresion . RPAREN ELSE bloque FI
-    (24) seleccion -> IF LPAREN b_expresion . RPAREN THEN bloque FI
+    (23) seleccion -> IF LPAREN b_expresion . RPAREN THEN bloque
+    (24) seleccion -> IF LPAREN b_expresion . RPAREN ELSE bloque FI
+    (25) seleccion -> IF LPAREN b_expresion . RPAREN THEN bloque FI
 
     RPAREN          shift and go to state 86
 
 
 state 61
 
-    (25) iteracion -> WHILE LPAREN b_expresion . RPAREN THEN bloque
+    (27) iteracion -> WHILE LPAREN b_expresion . RPAREN THEN bloque
 
     RPAREN          shift and go to state 87
 
 
 state 62
 
-    (26) repeticion -> DO bloque UNTIL . LPAREN b_expresion RPAREN PUNTOCOMA
+    (28) repeticion -> DO bloque UNTIL . LPAREN b_expresion RPAREN PUNTOCOMA
 
     LPAREN          shift and go to state 88
 
 
 state 63
 
-    (27) sent_read -> READ IDENTIFIER PUNTOCOMA .
+    (29) sent_read -> READ IDENTIFIER PUNTOCOMA .
 
-    IF              reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    WHILE           reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    DO              reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    READ            reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    WRITE           reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    LLAVEABRE       reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    IDENTIFIER      reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
-    LLAVECIERRA     reduce using rule 27 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    IF              reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    WHILE           reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    DO              reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    READ            reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    WRITE           reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    LLAVEABRE       reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    IDENTIFIER      reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
+    LLAVECIERRA     reduce using rule 29 (sent_read -> READ IDENTIFIER PUNTOCOMA .)
 
 
 state 64
 
-    (30) asignacion -> IDENTIFIER IGUAL b_expresion . PUNTOCOMA
+    (32) asignacion -> IDENTIFIER IGUAL b_expresion . PUNTOCOMA
+    (33) asignacion -> IDENTIFIER IGUAL b_expresion . error
 
     PUNTOCOMA       shift and go to state 89
+    error           shift and go to state 90
 
 
 state 65
 
-    (28) sent_write -> WRITE b_expresion PUNTOCOMA .
+    (30) sent_write -> WRITE b_expresion PUNTOCOMA .
 
-    IF              reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    WHILE           reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    DO              reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    READ            reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    WRITE           reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    LLAVEABRE       reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    IDENTIFIER      reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
-    LLAVECIERRA     reduce using rule 28 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    IF              reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    WHILE           reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    DO              reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    READ            reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    WRITE           reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    LLAVEABRE       reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    IDENTIFIER      reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
+    LLAVECIERRA     reduce using rule 30 (sent_write -> WRITE b_expresion PUNTOCOMA .)
 
 
 state 66
 
-    (31) b_expresion -> b_term OR . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (34) b_expresion -> b_term OR . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    b_term                         shift and go to state 90
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_term                         shift and go to state 91
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 67
 
-    (33) b_term -> not_factor AND . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (36) b_term -> not_factor AND . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    not_factor                     shift and go to state 91
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    not_factor                     shift and go to state 92
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 68
 
-    (35) not_factor -> NOT b_factor .
+    (38) not_factor -> NOT b_factor .
 
-    AND             reduce using rule 35 (not_factor -> NOT b_factor .)
-    OR              reduce using rule 35 (not_factor -> NOT b_factor .)
-    PUNTOCOMA       reduce using rule 35 (not_factor -> NOT b_factor .)
-    RPAREN          reduce using rule 35 (not_factor -> NOT b_factor .)
+    AND             reduce using rule 38 (not_factor -> NOT b_factor .)
+    OR              reduce using rule 38 (not_factor -> NOT b_factor .)
+    PUNTOCOMA       reduce using rule 38 (not_factor -> NOT b_factor .)
+    RPAREN          reduce using rule 38 (not_factor -> NOT b_factor .)
+    error           reduce using rule 38 (not_factor -> NOT b_factor .)
 
 
 state 69
 
-    (37) b_factor -> LPAREN TRUE . RPAREN
-
-    RPAREN          shift and go to state 92
-
-
-state 70
-
-    (38) b_factor -> LPAREN FALSE . RPAREN
+    (40) b_factor -> LPAREN TRUE . RPAREN
 
     RPAREN          shift and go to state 93
 
 
-state 71
+state 70
 
-    (58) factor -> LPAREN b_expresion . RPAREN
+    (41) b_factor -> LPAREN FALSE . RPAREN
 
     RPAREN          shift and go to state 94
 
 
+state 71
+
+    (59) factor -> LPAREN b_expresion . RPAREN
+
+    RPAREN          shift and go to state 95
+
+
 state 72
 
-    (40) relacion -> expresion rel_Op . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (43) relacion -> expresion MENORIGUAL . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     LPAREN          shift and go to state 81
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    expresion                      shift and go to state 95
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    expresion                      shift and go to state 96
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 73
 
-    (42) rel_Op -> MENORIGUAL .
+    (44) relacion -> expresion MENOR . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    PLUS            reduce using rule 42 (rel_Op -> MENORIGUAL .)
-    MINUS           reduce using rule 42 (rel_Op -> MENORIGUAL .)
-    LPAREN          reduce using rule 42 (rel_Op -> MENORIGUAL .)
-    NUMBER          reduce using rule 42 (rel_Op -> MENORIGUAL .)
-    FLOATNUMBER     reduce using rule 42 (rel_Op -> MENORIGUAL .)
-    IDENTIFIER      reduce using rule 42 (rel_Op -> MENORIGUAL .)
-
-
-state 74
-
-    (43) rel_Op -> MENOR .
-
-    PLUS            reduce using rule 43 (rel_Op -> MENOR .)
-    MINUS           reduce using rule 43 (rel_Op -> MENOR .)
-    LPAREN          reduce using rule 43 (rel_Op -> MENOR .)
-    NUMBER          reduce using rule 43 (rel_Op -> MENOR .)
-    FLOATNUMBER     reduce using rule 43 (rel_Op -> MENOR .)
-    IDENTIFIER      reduce using rule 43 (rel_Op -> MENOR .)
-
-
-state 75
-
-    (44) rel_Op -> MAYOR .
-
-    PLUS            reduce using rule 44 (rel_Op -> MAYOR .)
-    MINUS           reduce using rule 44 (rel_Op -> MAYOR .)
-    LPAREN          reduce using rule 44 (rel_Op -> MAYOR .)
-    NUMBER          reduce using rule 44 (rel_Op -> MAYOR .)
-    FLOATNUMBER     reduce using rule 44 (rel_Op -> MAYOR .)
-    IDENTIFIER      reduce using rule 44 (rel_Op -> MAYOR .)
-
-
-state 76
-
-    (45) rel_Op -> MAYORIGUAL .
-
-    PLUS            reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-    MINUS           reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-    LPAREN          reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-    NUMBER          reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-    FLOATNUMBER     reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-    IDENTIFIER      reduce using rule 45 (rel_Op -> MAYORIGUAL .)
-
-
-state 77
-
-    (46) rel_Op -> IGUALIGUAL .
-
-    PLUS            reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-    MINUS           reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-    LPAREN          reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-    NUMBER          reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-    FLOATNUMBER     reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-    IDENTIFIER      reduce using rule 46 (rel_Op -> IGUALIGUAL .)
-
-
-state 78
-
-    (47) rel_Op -> DIFERENTE .
-
-    PLUS            reduce using rule 47 (rel_Op -> DIFERENTE .)
-    MINUS           reduce using rule 47 (rel_Op -> DIFERENTE .)
-    LPAREN          reduce using rule 47 (rel_Op -> DIFERENTE .)
-    NUMBER          reduce using rule 47 (rel_Op -> DIFERENTE .)
-    FLOATNUMBER     reduce using rule 47 (rel_Op -> DIFERENTE .)
-    IDENTIFIER      reduce using rule 47 (rel_Op -> DIFERENTE .)
-
-
-state 79
-
-    (48) expresion -> termino suma_Op . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
-
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     LPAREN          shift and go to state 81
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    termino                        shift and go to state 96
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    expresion                      shift and go to state 97
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 74
+
+    (45) relacion -> expresion MAYOR . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    expresion                      shift and go to state 98
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 75
+
+    (46) relacion -> expresion MAYORIGUAL . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    expresion                      shift and go to state 99
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 76
+
+    (47) relacion -> expresion IGUALIGUAL . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    expresion                      shift and go to state 100
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 77
+
+    (48) relacion -> expresion DIFERENTE . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    expresion                      shift and go to state 101
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 78
+
+    (50) expresion -> termino PLUS . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    termino                        shift and go to state 102
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
+
+state 79
+
+    (51) expresion -> termino MINUS . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    termino                        shift and go to state 103
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 80
 
-    (56) signoFactor -> suma_Op factor .
+    (56) signoFactor -> PLUS factor .
 
-    TIMES           reduce using rule 56 (signoFactor -> suma_Op factor .)
-    DIVIDE          reduce using rule 56 (signoFactor -> suma_Op factor .)
-    PLUS            reduce using rule 56 (signoFactor -> suma_Op factor .)
-    MINUS           reduce using rule 56 (signoFactor -> suma_Op factor .)
-    MENORIGUAL      reduce using rule 56 (signoFactor -> suma_Op factor .)
-    MENOR           reduce using rule 56 (signoFactor -> suma_Op factor .)
-    MAYOR           reduce using rule 56 (signoFactor -> suma_Op factor .)
-    MAYORIGUAL      reduce using rule 56 (signoFactor -> suma_Op factor .)
-    IGUALIGUAL      reduce using rule 56 (signoFactor -> suma_Op factor .)
-    DIFERENTE       reduce using rule 56 (signoFactor -> suma_Op factor .)
-    AND             reduce using rule 56 (signoFactor -> suma_Op factor .)
-    OR              reduce using rule 56 (signoFactor -> suma_Op factor .)
-    PUNTOCOMA       reduce using rule 56 (signoFactor -> suma_Op factor .)
-    RPAREN          reduce using rule 56 (signoFactor -> suma_Op factor .)
+    TIMES           reduce using rule 56 (signoFactor -> PLUS factor .)
+    DIVIDE          reduce using rule 56 (signoFactor -> PLUS factor .)
+    PLUS            reduce using rule 56 (signoFactor -> PLUS factor .)
+    MINUS           reduce using rule 56 (signoFactor -> PLUS factor .)
+    MENORIGUAL      reduce using rule 56 (signoFactor -> PLUS factor .)
+    MENOR           reduce using rule 56 (signoFactor -> PLUS factor .)
+    MAYOR           reduce using rule 56 (signoFactor -> PLUS factor .)
+    MAYORIGUAL      reduce using rule 56 (signoFactor -> PLUS factor .)
+    IGUALIGUAL      reduce using rule 56 (signoFactor -> PLUS factor .)
+    DIFERENTE       reduce using rule 56 (signoFactor -> PLUS factor .)
+    AND             reduce using rule 56 (signoFactor -> PLUS factor .)
+    OR              reduce using rule 56 (signoFactor -> PLUS factor .)
+    PUNTOCOMA       reduce using rule 56 (signoFactor -> PLUS factor .)
+    RPAREN          reduce using rule 56 (signoFactor -> PLUS factor .)
+    error           reduce using rule 56 (signoFactor -> PLUS factor .)
 
 
 state 81
 
-    (58) factor -> LPAREN . b_expresion RPAREN
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (59) factor -> LPAREN . b_expresion RPAREN
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
     b_expresion                    shift and go to state 71
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 82
 
-    (52) termino -> signoFactor multi_Op . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
+    (57) signoFactor -> MINUS factor .
 
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    TIMES           reduce using rule 57 (signoFactor -> MINUS factor .)
+    DIVIDE          reduce using rule 57 (signoFactor -> MINUS factor .)
+    PLUS            reduce using rule 57 (signoFactor -> MINUS factor .)
+    MINUS           reduce using rule 57 (signoFactor -> MINUS factor .)
+    MENORIGUAL      reduce using rule 57 (signoFactor -> MINUS factor .)
+    MENOR           reduce using rule 57 (signoFactor -> MINUS factor .)
+    MAYOR           reduce using rule 57 (signoFactor -> MINUS factor .)
+    MAYORIGUAL      reduce using rule 57 (signoFactor -> MINUS factor .)
+    IGUALIGUAL      reduce using rule 57 (signoFactor -> MINUS factor .)
+    DIFERENTE       reduce using rule 57 (signoFactor -> MINUS factor .)
+    AND             reduce using rule 57 (signoFactor -> MINUS factor .)
+    OR              reduce using rule 57 (signoFactor -> MINUS factor .)
+    PUNTOCOMA       reduce using rule 57 (signoFactor -> MINUS factor .)
+    RPAREN          reduce using rule 57 (signoFactor -> MINUS factor .)
+    error           reduce using rule 57 (signoFactor -> MINUS factor .)
+
+
+state 83
+
+    (53) termino -> signoFactor TIMES . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
     LPAREN          shift and go to state 81
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    signoFactor                    shift and go to state 97
-    suma_Op                        shift and go to state 48
-    factor                         shift and go to state 50
-
-state 83
-
-    (54) multi_Op -> TIMES .
-
-    PLUS            reduce using rule 54 (multi_Op -> TIMES .)
-    MINUS           reduce using rule 54 (multi_Op -> TIMES .)
-    LPAREN          reduce using rule 54 (multi_Op -> TIMES .)
-    NUMBER          reduce using rule 54 (multi_Op -> TIMES .)
-    FLOATNUMBER     reduce using rule 54 (multi_Op -> TIMES .)
-    IDENTIFIER      reduce using rule 54 (multi_Op -> TIMES .)
-
+    signoFactor                    shift and go to state 104
+    factor                         shift and go to state 52
 
 state 84
 
-    (55) multi_Op -> DIVIDE .
+    (54) termino -> signoFactor DIVIDE . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
 
-    PLUS            reduce using rule 55 (multi_Op -> DIVIDE .)
-    MINUS           reduce using rule 55 (multi_Op -> DIVIDE .)
-    LPAREN          reduce using rule 55 (multi_Op -> DIVIDE .)
-    NUMBER          reduce using rule 55 (multi_Op -> DIVIDE .)
-    FLOATNUMBER     reduce using rule 55 (multi_Op -> DIVIDE .)
-    IDENTIFIER      reduce using rule 55 (multi_Op -> DIVIDE .)
-
-
-state 85
-
-    (11) lista_id -> IDENTIFIER COMA IDENTIFIER .
-
-    PUNTOCOMA       reduce using rule 11 (lista_id -> IDENTIFIER COMA IDENTIFIER .)
-    error           reduce using rule 11 (lista_id -> IDENTIFIER COMA IDENTIFIER .)
-
-
-state 86
-
-    (22) seleccion -> IF LPAREN b_expresion RPAREN . THEN bloque
-    (23) seleccion -> IF LPAREN b_expresion RPAREN . ELSE bloque FI
-    (24) seleccion -> IF LPAREN b_expresion RPAREN . THEN bloque FI
-
-    THEN            shift and go to state 98
-    ELSE            shift and go to state 99
-
-
-state 87
-
-    (25) iteracion -> WHILE LPAREN b_expresion RPAREN . THEN bloque
-
-    THEN            shift and go to state 100
-
-
-state 88
-
-    (26) repeticion -> DO bloque UNTIL LPAREN . b_expresion RPAREN PUNTOCOMA
-    (31) b_expresion -> . b_term OR b_term
-    (32) b_expresion -> . b_term
-    (33) b_term -> . not_factor AND not_factor
-    (34) b_term -> . not_factor
-    (35) not_factor -> . NOT b_factor
-    (36) not_factor -> . b_factor
-    (37) b_factor -> . LPAREN TRUE RPAREN
-    (38) b_factor -> . LPAREN FALSE RPAREN
-    (39) b_factor -> . relacion
-    (40) relacion -> . expresion rel_Op expresion
-    (41) relacion -> . expresion
-    (48) expresion -> . termino suma_Op termino
-    (49) expresion -> . termino
-    (52) termino -> . signoFactor multi_Op signoFactor
-    (53) termino -> . signoFactor
-    (56) signoFactor -> . suma_Op factor
-    (57) signoFactor -> . factor
-    (50) suma_Op -> . PLUS
-    (51) suma_Op -> . MINUS
-    (58) factor -> . LPAREN b_expresion RPAREN
-    (59) factor -> . NUMBER
-    (60) factor -> . FLOATNUMBER
-    (61) factor -> . IDENTIFIER
-
-    NOT             shift and go to state 42
-    LPAREN          shift and go to state 44
-    PLUS            shift and go to state 51
-    MINUS           shift and go to state 52
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    LPAREN          shift and go to state 81
     NUMBER          shift and go to state 53
     FLOATNUMBER     shift and go to state 54
     IDENTIFIER      shift and go to state 55
 
-    b_expresion                    shift and go to state 101
-    b_term                         shift and go to state 40
-    not_factor                     shift and go to state 41
-    b_factor                       shift and go to state 43
-    relacion                       shift and go to state 45
-    expresion                      shift and go to state 46
-    termino                        shift and go to state 47
-    suma_Op                        shift and go to state 48
-    signoFactor                    shift and go to state 49
-    factor                         shift and go to state 50
+    signoFactor                    shift and go to state 105
+    factor                         shift and go to state 52
+
+state 85
+
+    (11) lista_id -> IDENTIFIER COMA lista_id .
+
+    PUNTOCOMA       reduce using rule 11 (lista_id -> IDENTIFIER COMA lista_id .)
+    error           reduce using rule 11 (lista_id -> IDENTIFIER COMA lista_id .)
+
+
+state 86
+
+    (23) seleccion -> IF LPAREN b_expresion RPAREN . THEN bloque
+    (24) seleccion -> IF LPAREN b_expresion RPAREN . ELSE bloque FI
+    (25) seleccion -> IF LPAREN b_expresion RPAREN . THEN bloque FI
+
+    THEN            shift and go to state 106
+    ELSE            shift and go to state 107
+
+
+state 87
+
+    (27) iteracion -> WHILE LPAREN b_expresion RPAREN . THEN bloque
+
+    THEN            shift and go to state 108
+
+
+state 88
+
+    (28) repeticion -> DO bloque UNTIL LPAREN . b_expresion RPAREN PUNTOCOMA
+    (34) b_expresion -> . b_term OR b_term
+    (35) b_expresion -> . b_term
+    (36) b_term -> . not_factor AND not_factor
+    (37) b_term -> . not_factor
+    (38) not_factor -> . NOT b_factor
+    (39) not_factor -> . b_factor
+    (40) b_factor -> . LPAREN TRUE RPAREN
+    (41) b_factor -> . LPAREN FALSE RPAREN
+    (42) b_factor -> . relacion
+    (43) relacion -> . expresion MENORIGUAL expresion
+    (44) relacion -> . expresion MENOR expresion
+    (45) relacion -> . expresion MAYOR expresion
+    (46) relacion -> . expresion MAYORIGUAL expresion
+    (47) relacion -> . expresion IGUALIGUAL expresion
+    (48) relacion -> . expresion DIFERENTE expresion
+    (49) relacion -> . expresion
+    (50) expresion -> . termino PLUS termino
+    (51) expresion -> . termino MINUS termino
+    (52) expresion -> . termino
+    (53) termino -> . signoFactor TIMES signoFactor
+    (54) termino -> . signoFactor DIVIDE signoFactor
+    (55) termino -> . signoFactor
+    (56) signoFactor -> . PLUS factor
+    (57) signoFactor -> . MINUS factor
+    (58) signoFactor -> . factor
+    (59) factor -> . LPAREN b_expresion RPAREN
+    (60) factor -> . NUMBER
+    (61) factor -> . FLOATNUMBER
+    (62) factor -> . IDENTIFIER
+
+    NOT             shift and go to state 43
+    LPAREN          shift and go to state 45
+    PLUS            shift and go to state 49
+    MINUS           shift and go to state 50
+    NUMBER          shift and go to state 53
+    FLOATNUMBER     shift and go to state 54
+    IDENTIFIER      shift and go to state 55
+
+    b_expresion                    shift and go to state 109
+    b_term                         shift and go to state 41
+    not_factor                     shift and go to state 42
+    b_factor                       shift and go to state 44
+    relacion                       shift and go to state 46
+    expresion                      shift and go to state 47
+    termino                        shift and go to state 48
+    signoFactor                    shift and go to state 51
+    factor                         shift and go to state 52
 
 state 89
 
-    (30) asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .
+    (32) asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .
 
-    IF              reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    WHILE           reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    DO              reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    READ            reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    WRITE           reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    LLAVEABRE       reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    IDENTIFIER      reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
-    LLAVECIERRA     reduce using rule 30 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    IF              reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    WHILE           reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    DO              reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    READ            reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    WRITE           reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    LLAVEABRE       reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    IDENTIFIER      reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
+    LLAVECIERRA     reduce using rule 32 (asignacion -> IDENTIFIER IGUAL b_expresion PUNTOCOMA .)
 
 
 state 90
 
-    (31) b_expresion -> b_term OR b_term .
+    (33) asignacion -> IDENTIFIER IGUAL b_expresion error .
 
-    PUNTOCOMA       reduce using rule 31 (b_expresion -> b_term OR b_term .)
-    RPAREN          reduce using rule 31 (b_expresion -> b_term OR b_term .)
+    IF              reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    WHILE           reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    DO              reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    READ            reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    WRITE           reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    LLAVEABRE       reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    IDENTIFIER      reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
+    LLAVECIERRA     reduce using rule 33 (asignacion -> IDENTIFIER IGUAL b_expresion error .)
 
 
 state 91
 
-    (33) b_term -> not_factor AND not_factor .
+    (34) b_expresion -> b_term OR b_term .
 
-    OR              reduce using rule 33 (b_term -> not_factor AND not_factor .)
-    PUNTOCOMA       reduce using rule 33 (b_term -> not_factor AND not_factor .)
-    RPAREN          reduce using rule 33 (b_term -> not_factor AND not_factor .)
+    PUNTOCOMA       reduce using rule 34 (b_expresion -> b_term OR b_term .)
+    RPAREN          reduce using rule 34 (b_expresion -> b_term OR b_term .)
+    error           reduce using rule 34 (b_expresion -> b_term OR b_term .)
 
 
 state 92
 
-    (37) b_factor -> LPAREN TRUE RPAREN .
+    (36) b_term -> not_factor AND not_factor .
 
-    AND             reduce using rule 37 (b_factor -> LPAREN TRUE RPAREN .)
-    OR              reduce using rule 37 (b_factor -> LPAREN TRUE RPAREN .)
-    PUNTOCOMA       reduce using rule 37 (b_factor -> LPAREN TRUE RPAREN .)
-    RPAREN          reduce using rule 37 (b_factor -> LPAREN TRUE RPAREN .)
+    OR              reduce using rule 36 (b_term -> not_factor AND not_factor .)
+    PUNTOCOMA       reduce using rule 36 (b_term -> not_factor AND not_factor .)
+    RPAREN          reduce using rule 36 (b_term -> not_factor AND not_factor .)
+    error           reduce using rule 36 (b_term -> not_factor AND not_factor .)
 
 
 state 93
 
-    (38) b_factor -> LPAREN FALSE RPAREN .
+    (40) b_factor -> LPAREN TRUE RPAREN .
 
-    AND             reduce using rule 38 (b_factor -> LPAREN FALSE RPAREN .)
-    OR              reduce using rule 38 (b_factor -> LPAREN FALSE RPAREN .)
-    PUNTOCOMA       reduce using rule 38 (b_factor -> LPAREN FALSE RPAREN .)
-    RPAREN          reduce using rule 38 (b_factor -> LPAREN FALSE RPAREN .)
+    AND             reduce using rule 40 (b_factor -> LPAREN TRUE RPAREN .)
+    OR              reduce using rule 40 (b_factor -> LPAREN TRUE RPAREN .)
+    PUNTOCOMA       reduce using rule 40 (b_factor -> LPAREN TRUE RPAREN .)
+    RPAREN          reduce using rule 40 (b_factor -> LPAREN TRUE RPAREN .)
+    error           reduce using rule 40 (b_factor -> LPAREN TRUE RPAREN .)
 
 
 state 94
 
-    (58) factor -> LPAREN b_expresion RPAREN .
+    (41) b_factor -> LPAREN FALSE RPAREN .
 
-    TIMES           reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    DIVIDE          reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    PLUS            reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    MINUS           reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    MENORIGUAL      reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    MENOR           reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    MAYOR           reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    MAYORIGUAL      reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    IGUALIGUAL      reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    DIFERENTE       reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    AND             reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    OR              reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    PUNTOCOMA       reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
-    RPAREN          reduce using rule 58 (factor -> LPAREN b_expresion RPAREN .)
+    AND             reduce using rule 41 (b_factor -> LPAREN FALSE RPAREN .)
+    OR              reduce using rule 41 (b_factor -> LPAREN FALSE RPAREN .)
+    PUNTOCOMA       reduce using rule 41 (b_factor -> LPAREN FALSE RPAREN .)
+    RPAREN          reduce using rule 41 (b_factor -> LPAREN FALSE RPAREN .)
+    error           reduce using rule 41 (b_factor -> LPAREN FALSE RPAREN .)
 
 
 state 95
 
-    (40) relacion -> expresion rel_Op expresion .
+    (59) factor -> LPAREN b_expresion RPAREN .
 
-    AND             reduce using rule 40 (relacion -> expresion rel_Op expresion .)
-    OR              reduce using rule 40 (relacion -> expresion rel_Op expresion .)
-    PUNTOCOMA       reduce using rule 40 (relacion -> expresion rel_Op expresion .)
-    RPAREN          reduce using rule 40 (relacion -> expresion rel_Op expresion .)
+    TIMES           reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    DIVIDE          reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    PLUS            reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    MINUS           reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    MENORIGUAL      reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    MENOR           reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    MAYOR           reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    MAYORIGUAL      reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    IGUALIGUAL      reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    DIFERENTE       reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    AND             reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    OR              reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    PUNTOCOMA       reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    RPAREN          reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
+    error           reduce using rule 59 (factor -> LPAREN b_expresion RPAREN .)
 
 
 state 96
 
-    (48) expresion -> termino suma_Op termino .
+    (43) relacion -> expresion MENORIGUAL expresion .
 
-    MENORIGUAL      reduce using rule 48 (expresion -> termino suma_Op termino .)
-    MENOR           reduce using rule 48 (expresion -> termino suma_Op termino .)
-    MAYOR           reduce using rule 48 (expresion -> termino suma_Op termino .)
-    MAYORIGUAL      reduce using rule 48 (expresion -> termino suma_Op termino .)
-    IGUALIGUAL      reduce using rule 48 (expresion -> termino suma_Op termino .)
-    DIFERENTE       reduce using rule 48 (expresion -> termino suma_Op termino .)
-    AND             reduce using rule 48 (expresion -> termino suma_Op termino .)
-    OR              reduce using rule 48 (expresion -> termino suma_Op termino .)
-    PUNTOCOMA       reduce using rule 48 (expresion -> termino suma_Op termino .)
-    RPAREN          reduce using rule 48 (expresion -> termino suma_Op termino .)
+    AND             reduce using rule 43 (relacion -> expresion MENORIGUAL expresion .)
+    OR              reduce using rule 43 (relacion -> expresion MENORIGUAL expresion .)
+    PUNTOCOMA       reduce using rule 43 (relacion -> expresion MENORIGUAL expresion .)
+    RPAREN          reduce using rule 43 (relacion -> expresion MENORIGUAL expresion .)
+    error           reduce using rule 43 (relacion -> expresion MENORIGUAL expresion .)
 
 
 state 97
 
-    (52) termino -> signoFactor multi_Op signoFactor .
+    (44) relacion -> expresion MENOR expresion .
 
-    PLUS            reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    MINUS           reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    MENORIGUAL      reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    MENOR           reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    MAYOR           reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    MAYORIGUAL      reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    IGUALIGUAL      reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    DIFERENTE       reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    AND             reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    OR              reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    PUNTOCOMA       reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
-    RPAREN          reduce using rule 52 (termino -> signoFactor multi_Op signoFactor .)
+    AND             reduce using rule 44 (relacion -> expresion MENOR expresion .)
+    OR              reduce using rule 44 (relacion -> expresion MENOR expresion .)
+    PUNTOCOMA       reduce using rule 44 (relacion -> expresion MENOR expresion .)
+    RPAREN          reduce using rule 44 (relacion -> expresion MENOR expresion .)
+    error           reduce using rule 44 (relacion -> expresion MENOR expresion .)
 
 
 state 98
 
-    (22) seleccion -> IF LPAREN b_expresion RPAREN THEN . bloque
-    (24) seleccion -> IF LPAREN b_expresion RPAREN THEN . bloque FI
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (45) relacion -> expresion MAYOR expresion .
 
-    LLAVEABRE       shift and go to state 11
+    AND             reduce using rule 45 (relacion -> expresion MAYOR expresion .)
+    OR              reduce using rule 45 (relacion -> expresion MAYOR expresion .)
+    PUNTOCOMA       reduce using rule 45 (relacion -> expresion MAYOR expresion .)
+    RPAREN          reduce using rule 45 (relacion -> expresion MAYOR expresion .)
+    error           reduce using rule 45 (relacion -> expresion MAYOR expresion .)
 
-    bloque                         shift and go to state 102
 
 state 99
 
-    (23) seleccion -> IF LPAREN b_expresion RPAREN ELSE . bloque FI
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (46) relacion -> expresion MAYORIGUAL expresion .
 
-    LLAVEABRE       shift and go to state 11
+    AND             reduce using rule 46 (relacion -> expresion MAYORIGUAL expresion .)
+    OR              reduce using rule 46 (relacion -> expresion MAYORIGUAL expresion .)
+    PUNTOCOMA       reduce using rule 46 (relacion -> expresion MAYORIGUAL expresion .)
+    RPAREN          reduce using rule 46 (relacion -> expresion MAYORIGUAL expresion .)
+    error           reduce using rule 46 (relacion -> expresion MAYORIGUAL expresion .)
 
-    bloque                         shift and go to state 103
 
 state 100
 
-    (25) iteracion -> WHILE LPAREN b_expresion RPAREN THEN . bloque
-    (29) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
+    (47) relacion -> expresion IGUALIGUAL expresion .
 
-    LLAVEABRE       shift and go to state 11
+    AND             reduce using rule 47 (relacion -> expresion IGUALIGUAL expresion .)
+    OR              reduce using rule 47 (relacion -> expresion IGUALIGUAL expresion .)
+    PUNTOCOMA       reduce using rule 47 (relacion -> expresion IGUALIGUAL expresion .)
+    RPAREN          reduce using rule 47 (relacion -> expresion IGUALIGUAL expresion .)
+    error           reduce using rule 47 (relacion -> expresion IGUALIGUAL expresion .)
 
-    bloque                         shift and go to state 104
 
 state 101
 
-    (26) repeticion -> DO bloque UNTIL LPAREN b_expresion . RPAREN PUNTOCOMA
+    (48) relacion -> expresion DIFERENTE expresion .
 
-    RPAREN          shift and go to state 105
+    AND             reduce using rule 48 (relacion -> expresion DIFERENTE expresion .)
+    OR              reduce using rule 48 (relacion -> expresion DIFERENTE expresion .)
+    PUNTOCOMA       reduce using rule 48 (relacion -> expresion DIFERENTE expresion .)
+    RPAREN          reduce using rule 48 (relacion -> expresion DIFERENTE expresion .)
+    error           reduce using rule 48 (relacion -> expresion DIFERENTE expresion .)
 
 
 state 102
 
-    (22) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .
-    (24) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque . FI
+    (50) expresion -> termino PLUS termino .
 
-    IF              reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    WHILE           reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    DO              reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    READ            reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    WRITE           reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    LLAVEABRE       reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    IDENTIFIER      reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    LLAVECIERRA     reduce using rule 22 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
-    FI              shift and go to state 106
+    MENORIGUAL      reduce using rule 50 (expresion -> termino PLUS termino .)
+    MENOR           reduce using rule 50 (expresion -> termino PLUS termino .)
+    MAYOR           reduce using rule 50 (expresion -> termino PLUS termino .)
+    MAYORIGUAL      reduce using rule 50 (expresion -> termino PLUS termino .)
+    IGUALIGUAL      reduce using rule 50 (expresion -> termino PLUS termino .)
+    DIFERENTE       reduce using rule 50 (expresion -> termino PLUS termino .)
+    AND             reduce using rule 50 (expresion -> termino PLUS termino .)
+    OR              reduce using rule 50 (expresion -> termino PLUS termino .)
+    PUNTOCOMA       reduce using rule 50 (expresion -> termino PLUS termino .)
+    RPAREN          reduce using rule 50 (expresion -> termino PLUS termino .)
+    error           reduce using rule 50 (expresion -> termino PLUS termino .)
 
 
 state 103
 
-    (23) seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque . FI
+    (51) expresion -> termino MINUS termino .
 
-    FI              shift and go to state 107
+    MENORIGUAL      reduce using rule 51 (expresion -> termino MINUS termino .)
+    MENOR           reduce using rule 51 (expresion -> termino MINUS termino .)
+    MAYOR           reduce using rule 51 (expresion -> termino MINUS termino .)
+    MAYORIGUAL      reduce using rule 51 (expresion -> termino MINUS termino .)
+    IGUALIGUAL      reduce using rule 51 (expresion -> termino MINUS termino .)
+    DIFERENTE       reduce using rule 51 (expresion -> termino MINUS termino .)
+    AND             reduce using rule 51 (expresion -> termino MINUS termino .)
+    OR              reduce using rule 51 (expresion -> termino MINUS termino .)
+    PUNTOCOMA       reduce using rule 51 (expresion -> termino MINUS termino .)
+    RPAREN          reduce using rule 51 (expresion -> termino MINUS termino .)
+    error           reduce using rule 51 (expresion -> termino MINUS termino .)
 
 
 state 104
 
-    (25) iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .
+    (53) termino -> signoFactor TIMES signoFactor .
 
-    IF              reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    WHILE           reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    DO              reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    READ            reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    WRITE           reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    LLAVEABRE       reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    IDENTIFIER      reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
-    LLAVECIERRA     reduce using rule 25 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    PLUS            reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    MINUS           reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    MENORIGUAL      reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    MENOR           reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    MAYOR           reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    MAYORIGUAL      reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    IGUALIGUAL      reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    DIFERENTE       reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    AND             reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    OR              reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    PUNTOCOMA       reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    RPAREN          reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
+    error           reduce using rule 53 (termino -> signoFactor TIMES signoFactor .)
 
 
 state 105
 
-    (26) repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN . PUNTOCOMA
+    (54) termino -> signoFactor DIVIDE signoFactor .
 
-    PUNTOCOMA       shift and go to state 108
+    PLUS            reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    MINUS           reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    MENORIGUAL      reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    MENOR           reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    MAYOR           reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    MAYORIGUAL      reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    IGUALIGUAL      reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    DIFERENTE       reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    AND             reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    OR              reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    PUNTOCOMA       reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    RPAREN          reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
+    error           reduce using rule 54 (termino -> signoFactor DIVIDE signoFactor .)
 
 
 state 106
 
-    (24) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .
+    (23) seleccion -> IF LPAREN b_expresion RPAREN THEN . bloque
+    (25) seleccion -> IF LPAREN b_expresion RPAREN THEN . bloque FI
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
 
-    IF              reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    WHILE           reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    DO              reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    READ            reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    WRITE           reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    LLAVEABRE       reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    IDENTIFIER      reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
-    LLAVECIERRA     reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    LLAVEABRE       shift and go to state 11
 
+    bloque                         shift and go to state 110
 
 state 107
 
-    (23) seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .
+    (24) seleccion -> IF LPAREN b_expresion RPAREN ELSE . bloque FI
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
 
-    IF              reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    WHILE           reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    DO              reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    READ            reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    WRITE           reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    LLAVEABRE       reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    IDENTIFIER      reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
-    LLAVECIERRA     reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    LLAVEABRE       shift and go to state 11
 
+    bloque                         shift and go to state 111
 
 state 108
 
-    (26) repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .
+    (27) iteracion -> WHILE LPAREN b_expresion RPAREN THEN . bloque
+    (31) bloque -> . LLAVEABRE lista_sentencias LLAVECIERRA
 
-    IF              reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    WHILE           reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    DO              reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    READ            reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    WRITE           reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    LLAVEABRE       reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    IDENTIFIER      reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
-    LLAVECIERRA     reduce using rule 26 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    LLAVEABRE       shift and go to state 11
 
+    bloque                         shift and go to state 112
+
+state 109
+
+    (28) repeticion -> DO bloque UNTIL LPAREN b_expresion . RPAREN PUNTOCOMA
+
+    RPAREN          shift and go to state 113
+
+
+state 110
+
+    (23) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .
+    (25) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque . FI
+
+    IF              reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    WHILE           reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    DO              reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    READ            reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    WRITE           reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    LLAVEABRE       reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    IDENTIFIER      reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    LLAVECIERRA     reduce using rule 23 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque .)
+    FI              shift and go to state 114
+
+
+state 111
+
+    (24) seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque . FI
+
+    FI              shift and go to state 115
+
+
+state 112
+
+    (27) iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .
+
+    IF              reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    WHILE           reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    DO              reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    READ            reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    WRITE           reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    LLAVEABRE       reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    IDENTIFIER      reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+    LLAVECIERRA     reduce using rule 27 (iteracion -> WHILE LPAREN b_expresion RPAREN THEN bloque .)
+
+
+state 113
+
+    (28) repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 116
+
+
+state 114
+
+    (25) seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .
+
+    IF              reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    WHILE           reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    DO              reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    READ            reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    WRITE           reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    LLAVEABRE       reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    IDENTIFIER      reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+    LLAVECIERRA     reduce using rule 25 (seleccion -> IF LPAREN b_expresion RPAREN THEN bloque FI .)
+
+
+state 115
+
+    (24) seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .
+
+    IF              reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    WHILE           reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    DO              reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    READ            reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    WRITE           reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    LLAVEABRE       reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    IDENTIFIER      reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+    LLAVECIERRA     reduce using rule 24 (seleccion -> IF LPAREN b_expresion RPAREN ELSE bloque FI .)
+
+
+state 116
+
+    (28) repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .
+
+    IF              reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    WHILE           reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    DO              reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    READ            reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    WRITE           reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    LLAVEABRE       reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    IDENTIFIER      reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+    LLAVECIERRA     reduce using rule 28 (repeticion -> DO bloque UNTIL LPAREN b_expresion RPAREN PUNTOCOMA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for LLAVECIERRA in state 4 resolved as shift
+WARNING: reduce/reduce conflict in state 14 resolved using rule (lista_sentencias -> sentencia)
+WARNING: rejected rule (lista_sentencias -> <empty>) in state 14

@@ -15,7 +15,7 @@ parser = myPars.parser
 myFile = open(sys.argv[1])
 
 SintaxTree= parser.parse(myFile.read(),debug=True)
-print("Termino de Analisis Sintáctico!!")
+print("Termino de Análisis Sintáctico!!")
 #print(SintaxTree)
 #str(SintaxTree)
 print(SintaxTree)

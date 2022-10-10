@@ -34,6 +34,8 @@ namespace Proyecto_Compiladores_I
             //richTextBox1.Dock = DockStyle.Fill;
             richTextBox1.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
             richTextBox1.SelectionColor = Color.Black;
+
+          
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -215,6 +217,7 @@ namespace Proyecto_Compiladores_I
 
         private void Compilar(object sender, EventArgs e)
         {
+
             string strCmdText;
             if (!(NombreArch != ""))
             {
@@ -245,6 +248,42 @@ namespace Proyecto_Compiladores_I
             resSin.Text = p1.StandardOutput.ReadToEnd();
             p1.WaitForExit();
 
+            var p2 = new Process();
+            p2.StartInfo.UseShellExecute = false;
+            p2.StartInfo.RedirectStandardOutput = true;
+            p2.StartInfo.FileName = "python.exe";
+            p2.StartInfo.Arguments = "AnSeman.py " + "\"" + NombreArch + "\"";
+            // p = System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            p2.Start();
+            //resLex.Text = "";
+            resSeman.Text = p2.StandardOutput.ReadToEnd();
+            p2.WaitForExit();
+
+            try
+            {
+                ErrTxtBox.Text = "";
+                string texto= File.ReadAllText("SintaxErrors.txt");
+                if (texto.Length==0)
+                {
+                    ErrTxtBox.SelectionColor = Color.Green;
+                    ErrTxtBox.SelectedText = "SIN ERRORES!";
+                }
+                else
+                {
+                  
+                   ErrTxtBox.SelectionColor = Color.Red;
+                   ErrTxtBox.SelectionFont = new Font("Consolas", 14, FontStyle.Regular);
+                    ErrTxtBox.SelectedText = texto;
+                }
+              
+
+
+            }
+            catch (Exception)
+            {
+                
+            }
+         
 
         }
 

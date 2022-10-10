@@ -45,18 +45,22 @@ namespace Proyecto_Compiladores_I
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.resLex = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.resSin = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.resSeman = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.resSin = new System.Windows.Forms.TextBox();
+            this.ErrTxtBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -203,8 +207,20 @@ namespace Proyecto_Compiladores_I
             this.tabPage2.Text = "Sintáctico";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // resSin
+            // 
+            this.resSin.AcceptsReturn = true;
+            this.resSin.Location = new System.Drawing.Point(7, 4);
+            this.resSin.Multiline = true;
+            this.resSin.Name = "resSin";
+            this.resSin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.resSin.Size = new System.Drawing.Size(343, 192);
+            this.resSin.TabIndex = 0;
+            this.resSin.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.resSeman);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -212,6 +228,15 @@ namespace Proyecto_Compiladores_I
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Semántico";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // resSeman
+            // 
+            this.resSeman.Location = new System.Drawing.Point(11, 10);
+            this.resSeman.Multiline = true;
+            this.resSeman.Name = "resSeman";
+            this.resSeman.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.resSeman.Size = new System.Drawing.Size(323, 179);
+            this.resSeman.TabIndex = 0;
             // 
             // tabControl2
             // 
@@ -225,6 +250,7 @@ namespace Proyecto_Compiladores_I
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.ErrTxtBox);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -247,16 +273,14 @@ namespace Proyecto_Compiladores_I
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // resSin
+            // ErrTxtBox
             // 
-            this.resSin.AcceptsReturn = true;
-            this.resSin.Location = new System.Drawing.Point(7, 4);
-            this.resSin.Multiline = true;
-            this.resSin.Name = "resSin";
-            this.resSin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resSin.Size = new System.Drawing.Size(343, 192);
-            this.resSin.TabIndex = 0;
-            this.resSin.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.ErrTxtBox.Location = new System.Drawing.Point(6, 11);
+            this.ErrTxtBox.Name = "ErrTxtBox";
+            this.ErrTxtBox.ReadOnly = true;
+            this.ErrTxtBox.Size = new System.Drawing.Size(914, 96);
+            this.ErrTxtBox.TabIndex = 0;
+            this.ErrTxtBox.Text = "";
             // 
             // Form1
             // 
@@ -280,7 +304,10 @@ namespace Proyecto_Compiladores_I
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,6 +338,8 @@ namespace Proyecto_Compiladores_I
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.TextBox resLex;
         private System.Windows.Forms.TextBox resSin;
+        private System.Windows.Forms.TextBox resSeman;
+        private System.Windows.Forms.RichTextBox ErrTxtBox;
     }
 }
 
