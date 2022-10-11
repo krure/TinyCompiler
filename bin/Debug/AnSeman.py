@@ -16,7 +16,7 @@ myFile = open(sys.argv[1])
 
 GrammTree= parser.parse(myFile.read(),debug=True)
 print("Término de Análisis Gramático!!")
-#print(GrammTree)
+print(GrammTree)
 #str(SintaxTree)
 print(TablaSimb)
 #other_name(SintaxTree)

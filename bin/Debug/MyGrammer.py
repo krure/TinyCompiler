@@ -5,7 +5,7 @@ import re
 
 
 class Node:
-    def __init__(self, tipo, children=None,Simb=None):
+    def __init__(self, tipo, children=None,S=None):
         self.tipo = tipo
         #print('Construccion de nodo: ' + tipo)
 
@@ -13,7 +13,7 @@ class Node:
             self.children = children
         else:
             self.children = []
-        self.Simb = Simb
+        self.S = S
 
 
     def imp(self):
@@ -21,9 +21,11 @@ class Node:
         return ret
 
     def __str__(self, level=0):
-
-        ret = " | | " * level + repr(self.tipo) + "\n"
-        print(ret)
+        try:
+            ret = " | | " * level + repr(self.tipo) + "("+repr(self.S.tipo)+","+repr(self.S.valor)+")"+"\n"
+        except:
+            ret = " | | " * level + repr(self.tipo) + "\n"
+       # print(ret)
         # print('Numero de hijos en : '+self.tipo+': '+str(len(self.children)))
         for child in self.children:
             #     print('Tipo actual: '+self.tipo)
@@ -58,13 +60,14 @@ class MyGrammer:
 
     # CONSTRUCTOR
     def __init__(self, lexer):
-        # print("Parser constructor called")
+        print("Comienza el análisis gramático")
         self.parser = yacc.yacc(module=self)
         self.lexer = lexer
 
+
     # DESTRUCTOR
     def __del__(self):
-        print('Parser destructor called.')
+        print('Ha finalizado el análisis gramático')
 
     tokens = MyLexer.tokens
 
@@ -76,7 +79,7 @@ class MyGrammer:
         '''programa : PROGRAM LLAVEABRE lista_declaracion lista_sentencias LLAVECIERRA
                     | PROGRAM LLAVEABRE LLAVECIERRA
                     | PROGRAM LLAVEABRE lista_declaracion LLAVECIERRA'''
-        print("programa")
+        #print("programa")
         if (len(p) == 5):
             print("Solo hay declaraciones")
             # p[0]=Node("Programa",[Node('lista-declaracion',[Node('Decla')]),Node('lista-sentencias')],None)#[Node('lista-declaracion',[Node('Decla')]),Node('lista-sentencias')]
@@ -94,7 +97,7 @@ class MyGrammer:
     def p_lista_declaracion(self, p):
         '''lista_declaracion :  declaracion
                                 | declaracion lista_declaracion'''
-        print("list-decl")
+        #print("list-decl")
         if (len(p) == 2):
             p[0] = Node("Lista-decl", [p[1]])
         else:
@@ -107,7 +110,7 @@ class MyGrammer:
         listaid=re.split(',',p[2])
         for iden in listaid:
             TablaSimb[iden]=Simb(p[1])
-        print("decl")
+        #print("decl")
         pass
 
     def p_decl_err_pyc(self, p):
@@ -121,7 +124,7 @@ class MyGrammer:
 				  | BOOL'''
         # p[0]= Node('Tipo',[Node(p[1])])
         p[0] = p[1]
-        print("tipo")
+        #print("tipo")
         pass
 
     def p_lista_id(self, p):
@@ -208,7 +211,17 @@ class MyGrammer:
         # p[0]=p[1]=p[3]
         p[0] = Node('Asignacion', [Node(p[1]), p[3]])
 
-        TablaSimb[p[1]]=p[3]
+
+        try:
+            if TablaSimb[p[1]] != None:
+                TablaSimb[p[1]] = p[3].S
+        except:
+            print("Error Grámatico: la variable \'" + p[1] + "\' no se ha declarado")
+            f = open("SintaxErrors.txt", "a")
+            f.write("Error Grámatico: la variable \'" + p[1] + "\' no se ha declarado")
+            f.close()
+            return None
+        pass
         print("asignacion")
         pass
 
@@ -224,11 +237,11 @@ class MyGrammer:
                     | b_term'''
         if (len(p) == 4):
             #p[0] = Node('b_expresion', [p[1], Node('Or'), p[3]])
-            p[0]=Simb('booleano',p[1]|p[3])
+            p[0]=Node('b_expresion',[p[1],Node('Or'),p[3]],S=Simb('booleano',p[1].S.valor|p[3].S.valor))
 
         else:
-            #p[0] = Node('b_expresion', [p[1]])
-            p[0]=p[1]
+            p[0] = Node('b_expresion', [p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
+            #p[0]=p[1]
         print("expre")
         pass
 
@@ -236,24 +249,24 @@ class MyGrammer:
         '''b_term : not_factor AND not_factor
                 | not_factor'''
         if (len(p) == 4):
-            #p[0] = Node('p_b_Term', [p[1], Node('And'), p[3]], p[0])
-            p[0]=Simb('booleano',p[1]&p[3])
+            p[0] = Node('p_b_Term', [p[1], Node('And'), p[3]], S=Simb('booleano',p[1].S.valor&p[3].S.valor))
+            #p[0]=Simb('booleano',p[1]&p[3])
         else:
-            #p[0] = Node('p_b_term', [p[1]], p[0])
-            p[0]=p[1]
+            p[0] = Node('p_b_term', [p[1]], S=Simb(p[1].S.tipo,p[1].S.valor))
+            #p[0]=p[1]
         pass
 
     def p_not_factor(self, p):
         '''not_factor : NOT b_factor
 		                | b_factor'''
         if (len(p) == 3):
-            #p[0] = Node('p_not_factor', [Node('Not'), p[1]], p[0])
+            p[0] = Node('p_not_factor', [Node('Not'), p[2]], S=Simb('booleano',not p[2].S.valor ))
             print('Negando')
-            p[0]=Simb('booleano',not p[2])
+           # p[0]=Simb('booleano',not p[2])
         else:
-           # p[0] = Node('p_not_factor', [p[1], p[2]])
+            p[0] = Node('p_not_factor', [p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
             print("nada por aqui en not fact")
-            p[0]=p[1]
+            #p[0]=p[1]
         pass
 
     def p_b_factor(self, p):
@@ -262,82 +275,93 @@ class MyGrammer:
 		               | relacion'''
         if (len(p) == 4):
             #p[0] = Node('p_b_factor', [Node(p[1]), Node(p[2]), Node(p[3])])
-            p[0]= Simb('booleano',p[2])
+            #Regresamos la primitiva booleana con un operador ternario
+            p[0]= Node('b_factor',[p[2]],S=Simb('booleano', True if p[2]=='true' else False))
         else:
-            #p[0] = Node('p_b_factor', [p[1]])
-            p[0]=p[1]
+            p[0] = Node('p_b_factor', [p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
+            #p[0]=p[1]
         pass
 
     def p_relacion1(self, p):
         '''relacion : expresion MENORIGUAL expresion
 		            '''
-        p[0]=Simb('booleano',p[1]<=p[3])
+        p[0]=Node('Relacion',[p[1],Node('<='),p[3]],S=Simb('booleano',p[1].S.valor<=p[3].S.valor))
         pass
 
     def p_relacion2(self, p):
         '''relacion : expresion MENOR expresion
                     '''
         #p[0]=p[1]<p[3]
-        p[0] = Simb('booleano', p[1] < p[3])
+        p[0] = Node('Relacion',[p[1],Node('<'),p[3]],S=Simb('booleano', p[1].S.valor < p[3].S.valor))
 
     def p_relacion3(self, p):
         '''relacion : expresion MAYOR expresion
                    '''
         #p[0]=p[1]>p[3]
-        p[0] = Simb('booleano', p[1].valor > p[3].valor)
+       # p[0] = Simb('booleano', p[1].valor > p[3].valor)
+        p[0] = Node('Relacion', [p[1], Node('>'), p[3]], S=Simb('booleano', p[1].S.valor > p[3].S.valor))
+
         pass
 
     def p_relacion4(self, p):
         '''relacion : expresion MAYORIGUAL expresion
                     '''
        # p[0]=p[1]>=p[3]
-        p[0] = Simb('booleano', p[1] >= p[3])
+        #p[0] = Simb('booleano', p[1] >= p[3])
+        p[0] = Node('Relacion', [p[1], Node('>='), p[3]], S=Simb('booleano', p[1].S.valor >= p[3].S.valor))
+
         pass
 
     def p_relacion5(self, p):
         '''relacion : expresion IGUALIGUAL expresion
                     '''
         #p[0]=p[1]==p[3]
-        p[0] = Simb('booleano', p[1] == p[3])
+        #p[0] = Simb('booleano', p[1] == p[3])
+        p[0] = Node('Relacion', [p[1], Node('=='), p[3]], S=Simb('booleano', p[1].S.valor == p[3].S.valor))
+
         pass
 
     def p_relacion6(self, p):
         '''relacion : expresion DIFERENTE expresion
                     '''
         #p[0]=p[1]!=p[3]
-        p[0] = Simb('booleano', p[1].valor != p[3].valor)
+        #p[0] = Simb('booleano', p[1].valor != p[3].valor)
+        p[0] = Node('Relacion', [p[1], Node('!='), p[3]], S=Simb('booleano', p[1].S.valor != p[3].S.valor))
+
         pass
     def p_relacion7(self, p):
         '''relacion : expresion
                     '''
 
-        p[0]=p[1]
+        #p[0]=p[1]
+        p[0]=Node('Relacion',[p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
         pass
 
 
     def p_expresionS(self, p):
         '''expresion : termino PLUS termino
                         '''
-        if p[1].tipo=='Float' | p[3].tipo=='Float':
-            p[0] = Simb('Float',p[1].valor+p[3].valor)
+
+        if p[1].S.tipo=='Float' or p[3].S.tipo=='Float':
+            p[0] = Node('Expresion',[p[1],Node('+'),p[3] ],Simb('Float',p[1].S.valor+p[3].S.valor))
         else:
-            p[0] = Simb('Int', p[1].valor+p[3].valor)
+            p[0] = Node('Expresion',[p[1],Node('+'),p[3]] ,Simb('Int', p[1].valor+p[3].valor))
         pass
 
     def p_expresionR(self, p):
         '''expresion : termino MINUS termino
                         '''
 
-        if p[1].tipo == 'Float' | p[3].tipo == 'Float':
-            p[0] = Simb('Float', p[1].valor - p[3].valor)
+        if p[1].S.tipo == 'Float' | p[3].S.tipo == 'Float':
+            p[0] = Node('Expresion', [p[1], Node('-'), p[3]], Simb('Float', p[1].S.valor - p[3].S.valor))
         else:
-            p[0] = Simb('Int', p[1].valor - p[3].valor)
+            p[0] = Node('Expresion',[p[1],Node('-'),p[3]] ,Simb('Int', p[1].valor-p[3].valor))
         pass
 
     def p_expresiont(self, p):
         '''expresion : termino
                         '''
-        p[0] = p[1]
+        p[0] = Node('Expresion',[p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
         pass
 
 
@@ -345,10 +369,12 @@ class MyGrammer:
         '''termino : signoFactor TIMES signoFactor
                     '''
 
-        if p[1].tipo == 'Float' | p[3].tipo == 'Float':
-            p[0] = Simb('Float', p[1].valor * p[3].valor)
+        if p[1].S.tipo == 'Float' | p[3].S.tipo == 'Float':
+            #p[0] = Simb('Float', p[1].valor * p[3].valor)
+            p[0] = Node('Término', [p[1], Node('*'), p[3]], Simb('Float', p[1].S.valor * p[3].S.valor))
         else:
-            p[0] = Simb('Int', p[1].valor * p[3].valor)
+            #p[0] = Simb('Int', p[1].valor * p[3].valor)
+            p[0] = Node('Término', [p[1], Node('*'), p[3]], Simb('Int', p[1].S.valor * p[3].S.valor))
 
         pass
 
@@ -356,18 +382,19 @@ class MyGrammer:
         '''termino : signoFactor DIVIDE signoFactor
                     '''
 
-        if p[1].tipo == 'Float' | p[3].tipo == 'Float':
-            p[0] = Simb('Float', p[1] / p[3])
+        if p[1].S.tipo == 'Float' | p[3].S.tipo == 'Float':
+            #p[0] = Simb('Float', p[1] / p[3])
+            p[0] = Node('Término', [p[1], Node('/'), p[3]], Simb('Float', p[1].S.valor / p[3].S.valor))
         elif isinstance(p[1].valor/p[3].valor,float) :
-            p[0]= Simb('Float', p[1] / p[3])
+            p[0] = Node('Término', [p[1], Node('/'), p[3]], Simb('Float', p[1].S.valor / p[3].S.valor))
         else:
-            p[0] = Simb('Int', p[1] / p[3])
+            p[0] = Node('Término', [p[1], Node('/'), p[3]], Simb('Int', p[1].S.valor / p[3].S.valor))
 
         pass
 
     def p_terminoSF(self, p):
         '''termino : signoFactor'''
-        p[0]=p[1]
+        p[0] = Node('Término',[p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
         pass
 
 
@@ -375,18 +402,18 @@ class MyGrammer:
     def p_signoFactorP(self, p):
         '''signoFactor : PLUS factor
 		               '''
-        p[0]=p[2]
+        p[0] = Node('SignoFactor',[p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
         pass
 
     def p_signoFactorN(self, p):
         '''signoFactor : MINUS factor
                        '''
-        p[0]=-p[2]
+        p[0] = Node('SignoFactor',[p[1]],S=Simb(p[1].S.tipo,-p[1].S.valor))
         pass
 
     def p_signoFactor(self, p):
         '''signoFactor : factor'''
-        p[0]=p[1]
+        p[0] = Node('SignoFactor',[p[1]],S=Simb(p[1].S.tipo,p[1].S.valor))
         pass
 
     def p_factor(self, p):
@@ -395,16 +422,20 @@ class MyGrammer:
                        | FLOATNUMBER
                     '''
         if (p[1] == '('):
-            p[0] = p[2]
+            p[0] = Node('Factor',[Node('('),p[2],Node(')')],S=Simb(p[2].S.tipo,p[2].S.valor))
         elif "." in p[1]:
-            p[0] = Simb('Float',float(p[1]))
+            #p[0] = Simb('Float',float(p[1]))
+            p[0] = Node('Factor', [Node(p[1])], S=Simb('Float', float(p[1])))
         else:
-            p[0] = Simb('Int', int(p[1]))
+            p[0] = Node('Factor', [Node(p[1])], S=Simb('Int', int(p[1])))
         pass
 
     def p_factorID(self, p):
         '''factor : IDENTIFIER'''
-        p[0]=TablaSimb[p[1]]
+       # if(TablaSimb[p[1]]!=None):
+        p[0]=Node('Identificador',[Node(p[1])],S=Simb(TablaSimb[p[1]].tipo,TablaSimb[p[1]].valor))
+        #else:
+         #   print("Error Grámatico: la variable \'"+p[1]+"\' no se ha declarado")
         pass
 
     def p_error(self, p):
